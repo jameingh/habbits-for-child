@@ -205,3 +205,429 @@
 .ant-empty-description {
   color: #666 !important;
 }
+
+/* 全局样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0;
+}
+
+#root {
+  width: 100%;
+  max-width: 1200px;
+  min-height: 100vh;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* 响应式容器 */
+.responsive-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 响应式网格 */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+  justify-items: center;
+}
+
+/* 响应式卡片 */
+.responsive-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: none;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  width: 100%;
+  max-width: 400px;
+}
+
+.responsive-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* 响应式按钮 */
+.responsive-button {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: none;
+  font-weight: 500;
+  min-height: 40px;
+  padding: 8px 16px;
+}
+
+.responsive-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 响应式头像 */
+.responsive-avatar {
+  transition: all 0.3s ease;
+}
+
+.responsive-avatar:hover {
+  transform: scale(1.05);
+}
+
+/* 响应式文本 */
+.responsive-title {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.responsive-subtitle {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  margin-bottom: 12px;
+}
+
+.responsive-text {
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+  line-height: 1.6;
+}
+
+/* 响应式间距 */
+.responsive-spacing {
+  margin: clamp(12px, 3vw, 24px) 0;
+}
+
+/* 响应式浮动按钮 - 修复位置和变形问题 */
+.responsive-fab {
+  position: fixed;
+  bottom: clamp(20px, 5vw, 40px);
+  right: clamp(20px, 5vw, 40px);
+  width: clamp(48px, 12vw, 64px);
+  height: clamp(48px, 12vw, 64px);
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: clamp(18px, 4vw, 24px);
+  z-index: 1000;
+  transition: all 0.3s ease;
+  padding: 0 !important;
+  min-width: unset !important;
+  flex-shrink: 0;
+}
+
+.responsive-fab:hover {
+  transform: scale(1.1);
+}
+
+.responsive-fab .anticon {
+  font-size: inherit !important;
+}
+
+/* 响应式统计面板 */
+.responsive-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+  justify-items: center;
+}
+
+.responsive-stat-item {
+  text-align: center;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 150px;
+}
+
+/* 响应式表单 */
+.responsive-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.responsive-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+/* 响应式模态框 */
+.responsive-modal .ant-modal {
+  max-width: 90vw;
+  margin: 20px auto;
+}
+
+/* 响应式标签页 */
+.responsive-tabs .ant-tabs-nav {
+  margin-bottom: 24px;
+}
+
+.responsive-tabs .ant-tabs-tab {
+  padding: 12px 16px;
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+}
+
+/* 响应式列表 */
+.responsive-list {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* 自定义滚动条 */
+.responsive-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.responsive-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.responsive-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.responsive-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* 响应式导航栏 */
+.responsive-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 0 8px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* 响应式头部区域 */
+.responsive-header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 响应式内容区域 */
+.responsive-content {
+  min-height: 50vh;
+  padding: 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 响应式空状态 */
+.responsive-empty {
+  padding: clamp(40px, 10vw, 80px) 20px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 主内容区域包装器 */
+.main-content-wrapper {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-bottom: 100px; /* 为浮动按钮留出空间 */
+}
+
+/* 平板设备样式 */
+@media (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+  
+  .responsive-container {
+    padding: 16px;
+  }
+  
+  .responsive-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .responsive-stats {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 12px;
+  }
+  
+  .responsive-navbar {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+  
+  .responsive-header {
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  
+  .responsive-content {
+    padding: 20px;
+  }
+  
+  .responsive-list {
+    max-height: 50vh;
+  }
+  
+  .responsive-tabs .ant-tabs-nav {
+    margin-bottom: 16px;
+  }
+  
+  .main-content-wrapper {
+    padding-bottom: 80px;
+  }
+}
+
+/* 手机设备样式 */
+@media (max-width: 480px) {
+  .responsive-container {
+    padding: 12px;
+  }
+  
+  .responsive-grid {
+    gap: 12px;
+  }
+  
+  .responsive-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  
+  .responsive-stat-item {
+    padding: 12px 8px;
+  }
+  
+  .responsive-header {
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .responsive-content {
+    padding: 16px;
+    min-height: 40vh;
+  }
+  
+  .responsive-navbar {
+    gap: 12px;
+  }
+  
+  .responsive-fab {
+    bottom: 16px;
+    right: 16px;
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 18px !important;
+  }
+  
+  .responsive-list {
+    max-height: 40vh;
+  }
+  
+  .responsive-button {
+    min-height: 36px;
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+  
+  .responsive-modal .ant-modal {
+    margin: 10px;
+    max-width: calc(100vw - 20px);
+  }
+  
+  .responsive-tabs .ant-tabs-tab {
+    padding: 8px 12px;
+  }
+  
+  .main-content-wrapper {
+    padding-bottom: 70px;
+  }
+}
+
+/* 大屏幕设备样式 */
+@media (min-width: 1200px) {
+  .responsive-container {
+    padding: 32px;
+  }
+  
+  .responsive-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+  }
+  
+  .responsive-header {
+    padding: 32px;
+    margin-bottom: 40px;
+  }
+  
+  .responsive-content {
+    padding: 32px;
+  }
+  
+  .responsive-list {
+    max-height: 70vh;
+  }
+  
+  .main-content-wrapper {
+    padding-bottom: 120px;
+  }
+}
+
+/* 超大屏幕设备样式 */
+@media (min-width: 1600px) {
+  .responsive-container {
+    max-width: 1400px;
+    padding: 40px;
+  }
+  
+  .responsive-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 32px;
+  }
+}

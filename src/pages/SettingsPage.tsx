@@ -2,38 +2,33 @@ import React, { useState } from 'react';
 import { Button, Tabs, Modal, Form, Input, InputNumber, message, Card, Typography, Space, Empty } from 'antd';
 import { PlusOutlined, HomeOutlined, TrophyOutlined, CloseCircleOutlined, DatabaseOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { RewardPunishItem } from '../types';
+
 import { useAppContext } from '../context/AppContext';
 
-const { TabPane } = Tabs;
 const { Title, Text } = Typography;
+const { TabPane } = Tabs;
 
 const SettingsPage: React.FC = () => {
-  const { rewardItems, punishmentItems, addRewardItem, addPunishmentItem, deleteRewardItem, deletePunishmentItem } = useAppContext();
+  const navigate = useNavigate();
+  const { 
+    children, 
+    rewardItems, 
+    punishmentItems, 
+    addChild, 
+    deleteChild,
+    addRewardItem, 
+    addPunishmentItem, 
+    deleteRewardItem, 
+    deletePunishmentItem 
+  } = useAppContext();
+
+  const [activeTab, setActiveTab] = useState('children');
+  const [isChildModalOpen, setIsChildModalOpen] = useState(false);
   const [isRewardModalOpen, setIsRewardModalOpen] = useState(false);
   const [isPunishmentModalOpen, setIsPunishmentModalOpen] = useState(false);
-  const [form] = Form.useForm();
-  const navigate = useNavigate();
-
-  const handleAddReward = (values: any) => {
-    addRewardItem({
-      name: values.name,
-      points: values.points,
-    });
-    form.resetFields();
-    setIsRewardModalOpen(false);
-    message.success('添加成功');
-  };
-
-  const handleAddPunishment = (values: any) => {
-    addPunishmentItem({
-      name: values.name,
-      points: values.points,
-    });
-    form.resetFields();
-    setIsPunishmentModalOpen(false);
-    message.success('添加成功');
-  };
+  const [childForm] = Form.useForm();
+  const [rewardForm] = Form.useForm();
+  const [punishmentForm] = Form.useForm();
 
   const handleHomeClick = () => {
     navigate('/');
@@ -43,359 +38,480 @@ const SettingsPage: React.FC = () => {
     navigate('/data-manage');
   };
 
-  // 渲染项目卡片
-  const renderItemCard = (item: RewardPunishItem, onDelete: (id: string) => void) => (
-    <Card
-      key={item.id}
-      hoverable
-      style={{
-        marginBottom: '12px',
-        borderRadius: '12px',
-        border: 'none',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
-        background: 'rgba(255, 255, 255, 0.9)',
-      }}
-      bodyStyle={{ padding: '16px' }}
-    >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ flex: 1 }}>
-          <Text strong style={{ fontSize: '16px', color: '#333' }}>
-            {item.name}
-          </Text>
-          <div style={{ marginTop: '4px' }}>
-            <Text
+  const handleAddChild = (values: any) => {
+    addChild({
+      name: values.name,
+    });
+    childForm.resetFields();
+    setIsChildModalOpen(false);
+    message.success('添加成功');
+  };
+
+  const handleAddReward = (values: any) => {
+    addRewardItem({
+      name: values.name,
+      points: values.points,
+    });
+    rewardForm.resetFields();
+    setIsRewardModalOpen(false);
+    message.success('添加成功');
+  };
+
+  const handleAddPunishment = (values: any) => {
+    addPunishmentItem({
+      name: values.name,
+      points: values.points,
+    });
+    punishmentForm.resetFields();
+    setIsPunishmentModalOpen(false);
+    message.success('添加成功');
+  };
+
+  const renderChildrenTab = () => (
+    <div className="responsive-content">
+      {children.length === 0 ? (
+        <div className="responsive-empty">
+          <Empty
+            image={<TrophyOutlined style={{ fontSize: '64px', color: '#d9d9d9' }} />}
+            description={
+              <div>
+                <Text strong className="responsive-subtitle" style={{ color: '#666', display: 'block' }}>
+                  还没有添加孩子
+                </Text>
+                <Text className="responsive-text" style={{ color: '#999' }}>
+                  点击下方按钮添加第一个孩子
+                </Text>
+              </div>
+            }
+          />
+          <div className="responsive-spacing">
+            <Button
+              type="primary"
+              size="large"
+              icon={<PlusOutlined />}
+              onClick={() => setIsChildModalOpen(true)}
+              className="responsive-button"
               style={{
-                fontSize: '14px',
-                color: item.type === 'reward' ? '#52c41a' : '#ff4d4f',
-                fontWeight: 'bold',
+                background: 'linear-gradient(45deg, #52c41a, #73d13d)',
+                border: 'none',
+                fontSize: '16px',
+                height: '48px',
+                padding: '0 32px',
               }}
             >
-              {item.type === 'reward' ? '+' : ''}{item.points} 分
-            </Text>
+              添加孩子
+            </Button>
           </div>
         </div>
-        <Button
-          danger
-          size="small"
-          icon={<DeleteOutlined />}
-          style={{
-            borderRadius: '6px',
-            border: 'none',
-            background: 'rgba(255, 77, 79, 0.1)',
-            color: '#ff4d4f',
-          }}
-          onClick={() => {
-            Modal.confirm({
-              title: '确认删除',
-              content: `确定要删除"${item.name}"吗？`,
-              okText: '确认',
-              cancelText: '取消',
-              onOk: () => {
-                onDelete(item.id);
-                message.success('删除成功');
-              }
-            });
-          }}
-        >
-          删除
-        </Button>
-      </div>
-    </Card>
+      ) : (
+        <div className="responsive-list">
+          <div className="responsive-grid" style={{ width: '100%' }}>
+            {children.map(child => (
+              <Card
+                key={child.id}
+                className="responsive-card"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  border: 'none',
+                  maxWidth: '300px',
+                }}
+                bodyStyle={{ padding: '20px' }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ flex: 1 }}>
+                    <Title level={4} className="responsive-subtitle" style={{ margin: '0 0 8px' }}>
+                      {child.name}
+                    </Title>
+                    <Text className="responsive-text" style={{ color: '#666' }}>
+                      当前积分：
+                      <Text strong style={{ color: child.points >= 0 ? '#52c41a' : '#ff4d4f', marginLeft: '4px' }}>
+                        {child.points}
+                      </Text>
+                    </Text>
+                  </div>
+                  <Button
+                    danger
+                    size="small"
+                    icon={<DeleteOutlined />}
+                    className="responsive-button"
+                    style={{
+                      borderRadius: '6px',
+                      border: 'none',
+                      background: 'rgba(255, 77, 79, 0.1)',
+                      color: '#ff4d4f',
+                    }}
+                    onClick={() => {
+                      Modal.confirm({
+                        title: '确认删除',
+                        content: `确定要删除 ${child.name} 吗？删除后将无法恢复。`,
+                        okText: '确认',
+                        cancelText: '取消',
+                        onOk: () => {
+                          deleteChild(child.id);
+                          message.success('删除成功');
+                        }
+                      });
+                    }}
+                  >
+                    删除
+                  </Button>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  const renderRewardTab = () => (
+    <div className="responsive-content">
+      {rewardItems.length === 0 ? (
+        <div className="responsive-empty">
+          <Empty
+            image={<TrophyOutlined style={{ fontSize: '64px', color: '#d9d9d9' }} />}
+            description={
+              <div>
+                <Text strong className="responsive-subtitle" style={{ color: '#666', display: 'block' }}>
+                  还没有奖励项目
+                </Text>
+                <Text className="responsive-text" style={{ color: '#999' }}>
+                  点击下方按钮添加第一个奖励项目
+                </Text>
+              </div>
+            }
+          />
+          <div className="responsive-spacing">
+            <Button
+              type="primary"
+              size="large"
+              icon={<PlusOutlined />}
+              onClick={() => setIsRewardModalOpen(true)}
+              className="responsive-button"
+              style={{
+                background: 'linear-gradient(45deg, #52c41a, #73d13d)',
+                border: 'none',
+                fontSize: '16px',
+                height: '48px',
+                padding: '0 32px',
+              }}
+            >
+              添加奖励
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <div className="responsive-list">
+          <div className="responsive-grid" style={{ width: '100%' }}>
+            {rewardItems.map(item => (
+              <Card
+                key={item.id}
+                className="responsive-card"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  border: 'none',
+                  maxWidth: '300px',
+                }}
+                bodyStyle={{ padding: '20px' }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ flex: 1 }}>
+                    <Title level={4} className="responsive-subtitle" style={{ margin: '0 0 8px' }}>
+                      {item.name}
+                    </Title>
+                    <Text className="responsive-text" style={{ color: '#52c41a', fontWeight: 'bold' }}>
+                      +{item.points} 分
+                    </Text>
+                  </div>
+                  <Button
+                    danger
+                    size="small"
+                    icon={<DeleteOutlined />}
+                    className="responsive-button"
+                    style={{
+                      borderRadius: '6px',
+                      border: 'none',
+                      background: 'rgba(255, 77, 79, 0.1)',
+                      color: '#ff4d4f',
+                    }}
+                    onClick={() => {
+                      Modal.confirm({
+                        title: '确认删除',
+                        content: `确定要删除奖励项目 "${item.name}" 吗？`,
+                        okText: '确认',
+                        cancelText: '取消',
+                        onOk: () => {
+                          deleteRewardItem(item.id);
+                          message.success('删除成功');
+                        }
+                      });
+                    }}
+                  >
+                    删除
+                  </Button>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  const renderPunishmentTab = () => (
+    <div className="responsive-content">
+      {punishmentItems.length === 0 ? (
+        <div className="responsive-empty">
+          <Empty
+            image={<CloseCircleOutlined style={{ fontSize: '64px', color: '#d9d9d9' }} />}
+            description={
+              <div>
+                <Text strong className="responsive-subtitle" style={{ color: '#666', display: 'block' }}>
+                  还没有惩罚项目
+                </Text>
+                <Text className="responsive-text" style={{ color: '#999' }}>
+                  点击下方按钮添加第一个惩罚项目
+                </Text>
+              </div>
+            }
+          />
+          <div className="responsive-spacing">
+            <Button
+              type="primary"
+              size="large"
+              icon={<PlusOutlined />}
+              onClick={() => setIsPunishmentModalOpen(true)}
+              className="responsive-button"
+              style={{
+                background: 'linear-gradient(45deg, #ff4d4f, #ff7875)',
+                border: 'none',
+                fontSize: '16px',
+                height: '48px',
+                padding: '0 32px',
+              }}
+            >
+              添加惩罚
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <div className="responsive-list">
+          <div className="responsive-grid" style={{ width: '100%' }}>
+            {punishmentItems.map(item => (
+              <Card
+                key={item.id}
+                className="responsive-card"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  border: 'none',
+                  maxWidth: '300px',
+                }}
+                bodyStyle={{ padding: '20px' }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ flex: 1 }}>
+                    <Title level={4} className="responsive-subtitle" style={{ margin: '0 0 8px' }}>
+                      {item.name}
+                    </Title>
+                    <Text className="responsive-text" style={{ color: '#ff4d4f', fontWeight: 'bold' }}>
+                      {item.points} 分
+                    </Text>
+                  </div>
+                  <Button
+                    danger
+                    size="small"
+                    icon={<DeleteOutlined />}
+                    className="responsive-button"
+                    style={{
+                      borderRadius: '6px',
+                      border: 'none',
+                      background: 'rgba(255, 77, 79, 0.1)',
+                      color: '#ff4d4f',
+                    }}
+                    onClick={() => {
+                      Modal.confirm({
+                        title: '确认删除',
+                        content: `确定要删除惩罚项目 "${item.name}" 吗？`,
+                        okText: '确认',
+                        cancelText: '取消',
+                        onOk: () => {
+                          deletePunishmentItem(item.id);
+                          message.success('删除成功');
+                        }
+                      });
+                    }}
+                  >
+                    删除
+                  </Button>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   );
 
   return (
-    <div 
-      className="settings-page" 
-      style={{ 
-        minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        padding: '20px',
-      }}
-    >
-      {/* 顶部导航栏 */}
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center',
-        marginBottom: '30px',
-        padding: '0 10px'
-      }}>
+    <div className="responsive-container">
+      {/* 头部区域 */}
+      <div className="responsive-header">
+        <Title level={1} className="responsive-title" style={{ color: 'white', marginBottom: '8px' }}>
+          设置管理
+        </Title>
+        <Text className="responsive-text" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+          管理孩子信息、奖励和惩罚项目
+        </Text>
+      </div>
+
+      {/* 导航栏 */}
+      <div className="responsive-navbar">
         <Button
           type="text"
           icon={<HomeOutlined />}
+          onClick={handleHomeClick}
+          className="responsive-button"
           style={{
             color: 'white',
-            fontSize: '20px',
-            width: '44px',
-            height: '44px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             background: 'rgba(255, 255, 255, 0.2)',
-            borderRadius: '50%',
-            backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255, 255, 255, 0.3)',
-          }}
-          onClick={handleHomeClick}
-        />
-        <Title 
-          level={1} 
-          style={{ 
-            color: 'white', 
-            margin: 0,
-            textAlign: 'center',
-            textShadow: '0 2px 4px rgba(0,0,0,0.3)',
-            fontSize: '28px'
+            backdropFilter: 'blur(10px)',
           }}
         >
-          设置
-        </Title>
+          返回首页
+        </Button>
         <Button
-          type="text"
+          type="primary"
           icon={<DatabaseOutlined />}
-          style={{
-            color: 'white',
-            fontSize: '20px',
-            width: '44px',
-            height: '44px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: 'rgba(255, 255, 255, 0.2)',
-            borderRadius: '50%',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
-          }}
           onClick={handleDataManageClick}
+          className="responsive-button"
+          style={{
+            background: 'linear-gradient(45deg, #1890ff, #36cfc9)',
+            border: 'none',
+          }}
+        >
+          数据管理
+        </Button>
+      </div>
+
+      {/* 主内容区域包装器 */}
+      <div className="main-content-wrapper">
+        {/* 主要内容区域 */}
+        <Card className="responsive-card" bodyStyle={{ padding: '24px' }} style={{ width: '100%', maxWidth: '800px' }}>
+          <Tabs 
+            activeKey={activeTab}
+            onChange={setActiveTab}
+            size="large"
+            className="responsive-tabs"
+          >
+            <TabPane
+              tab={
+                <span className="responsive-text">
+                  <TrophyOutlined style={{ marginRight: '8px' }} />
+                  孩子管理
+                </span>
+              }
+              key="children"
+            >
+              {renderChildrenTab()}
+            </TabPane>
+            
+            <TabPane
+              tab={
+                <span className="responsive-text">
+                  <TrophyOutlined style={{ marginRight: '8px' }} />
+                  奖励项目
+                </span>
+              }
+              key="rewards"
+            >
+              {renderRewardTab()}
+            </TabPane>
+            
+            <TabPane
+              tab={
+                <span className="responsive-text">
+                  <CloseCircleOutlined style={{ marginRight: '8px' }} />
+                  惩罚项目
+                </span>
+              }
+              key="punishments"
+            >
+              {renderPunishmentTab()}
+            </TabPane>
+          </Tabs>
+        </Card>
+
+        {/* 浮动添加按钮 */}
+        <Button
+          type="primary"
+          shape="circle"
+          icon={<PlusOutlined />}
+          size="large"
+          className="responsive-fab"
+          style={{
+            background: activeTab === 'children' 
+              ? 'linear-gradient(45deg, #52c41a, #73d13d)'
+              : activeTab === 'rewards'
+              ? 'linear-gradient(45deg, #52c41a, #73d13d)'
+              : 'linear-gradient(45deg, #ff4d4f, #ff7875)',
+            border: 'none',
+            boxShadow: '0 4px 16px rgba(82, 196, 26, 0.3)',
+          }}
+          onClick={() => {
+            if (activeTab === 'children') {
+              setIsChildModalOpen(true);
+            } else if (activeTab === 'rewards') {
+              setIsRewardModalOpen(true);
+            } else {
+              setIsPunishmentModalOpen(true);
+            }
+          }}
         />
       </div>
 
-      {/* 主要内容区域 */}
-      <Card
-        style={{
-          background: 'rgba(255, 255, 255, 0.95)',
-          borderRadius: '16px',
-          backdropFilter: 'blur(10px)',
-          border: 'none',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-          marginBottom: '20px',
-        }}
-        bodyStyle={{ padding: '24px' }}
-      >
-        <Tabs 
-          defaultActiveKey="reward"
-          size="large"
-        >
-          <TabPane 
-            tab={
-              <span style={{ fontSize: '16px', fontWeight: '500' }}>
-                <TrophyOutlined style={{ marginRight: '8px' }} />
-                奖励项目
-              </span>
-            } 
-            key="reward"
-          >
-            <div style={{ minHeight: '400px', position: 'relative' }}>
-              {rewardItems.length === 0 ? (
-                <Empty
-                  image={<TrophyOutlined style={{ fontSize: '48px', color: '#d9d9d9' }} />}
-                  description={
-                    <Text style={{ color: '#666' }}>
-                      还没有添加奖励项目<br />
-                      <Text style={{ fontSize: '12px', color: '#999' }}>
-                        点击下方按钮添加第一个奖励项目
-                      </Text>
-                    </Text>
-                  }
-                  style={{ marginTop: '60px' }}
-                />
-              ) : (
-                <div style={{ maxHeight: '350px', overflowY: 'auto', paddingRight: '8px' }}>
-                  {rewardItems.map(item => renderItemCard(item, deleteRewardItem))}
-                </div>
-              )}
-              
-              <Button
-                type="primary"
-                icon={<PlusOutlined />}
-                size="large"
-                style={{
-                  position: 'absolute',
-                  bottom: '0',
-                  right: '0',
-                  borderRadius: '12px',
-                  background: 'linear-gradient(45deg, #52c41a, #73d13d)',
-                  border: 'none',
-                  boxShadow: '0 4px 12px rgba(82, 196, 26, 0.3)',
-                }}
-                onClick={() => setIsRewardModalOpen(true)}
-              >
-                添加奖励项目
-              </Button>
-            </div>
-          </TabPane>
-
-          <TabPane 
-            tab={
-              <span style={{ fontSize: '16px', fontWeight: '500' }}>
-                <CloseCircleOutlined style={{ marginRight: '8px' }} />
-                惩罚项目
-              </span>
-            } 
-            key="punishment"
-          >
-            <div style={{ minHeight: '400px', position: 'relative' }}>
-              {punishmentItems.length === 0 ? (
-                <Empty
-                  image={<CloseCircleOutlined style={{ fontSize: '48px', color: '#d9d9d9' }} />}
-                  description={
-                    <Text style={{ color: '#666' }}>
-                      还没有添加惩罚项目<br />
-                      <Text style={{ fontSize: '12px', color: '#999' }}>
-                        点击下方按钮添加第一个惩罚项目
-                      </Text>
-                    </Text>
-                  }
-                  style={{ marginTop: '60px' }}
-                />
-              ) : (
-                <div style={{ maxHeight: '350px', overflowY: 'auto', paddingRight: '8px' }}>
-                  {punishmentItems.map(item => renderItemCard(item, deletePunishmentItem))}
-                </div>
-              )}
-              
-              <Button
-                type="primary"
-                icon={<PlusOutlined />}
-                size="large"
-                style={{
-                  position: 'absolute',
-                  bottom: '0',
-                  right: '0',
-                  borderRadius: '12px',
-                  background: 'linear-gradient(45deg, #ff4d4f, #ff7875)',
-                  border: 'none',
-                  boxShadow: '0 4px 12px rgba(255, 77, 79, 0.3)',
-                }}
-                onClick={() => setIsPunishmentModalOpen(true)}
-              >
-                添加惩罚项目
-              </Button>
-            </div>
-          </TabPane>
-
-          <TabPane 
-            tab={
-              <span style={{ fontSize: '16px', fontWeight: '500' }}>
-                <DatabaseOutlined style={{ marginRight: '8px' }} />
-                数据管理
-              </span>
-            } 
-            key="data"
-          >
-            <div style={{ 
-              padding: '40px 20px', 
-              textAlign: 'center',
-              minHeight: '400px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <DatabaseOutlined style={{ fontSize: '64px', color: '#1890ff', marginBottom: '20px' }} />
-              <Title level={3} style={{ color: '#333', marginBottom: '12px' }}>
-                数据管理中心
-              </Title>
-              <Text style={{ fontSize: '16px', color: '#666', marginBottom: '30px', lineHeight: '1.6' }}>
-                管理您的数据，包括数据备份、恢复和清理功能<br />
-                确保您的重要数据安全可靠
-              </Text>
-              <Button 
-                type="primary" 
-                icon={<DatabaseOutlined />} 
-                size="large"
-                onClick={handleDataManageClick}
-                style={{ 
-                  borderRadius: '12px',
-                  background: 'linear-gradient(45deg, #1890ff, #36cfc9)',
-                  border: 'none',
-                  padding: '8px 32px',
-                  height: 'auto',
-                  fontSize: '16px',
-                  boxShadow: '0 4px 12px rgba(24, 144, 255, 0.3)',
-                }}
-              >
-                进入数据管理
-              </Button>
-            </div>
-          </TabPane>
-        </Tabs>
-      </Card>
-
-      {/* 添加奖励项的弹窗 */}
+      {/* 添加孩子弹窗 */}
       <Modal
-        title={
-          <div style={{ textAlign: 'center', fontSize: '18px', fontWeight: 'bold' }}>
-            <TrophyOutlined style={{ marginRight: '8px', color: '#52c41a' }} />
-            添加奖励项目
-          </div>
-        }
-        open={isRewardModalOpen}
-        onCancel={() => setIsRewardModalOpen(false)}
+        title="添加新的孩子"
+        open={isChildModalOpen}
+        onCancel={() => setIsChildModalOpen(false)}
         footer={null}
-        width={400}
-        style={{ top: '20vh' }}
+        className="responsive-modal"
       >
         <Form
-          form={form}
+          form={childForm}
           layout="vertical"
-          onFinish={handleAddReward}
-          style={{ marginTop: '20px' }}
+          onFinish={handleAddChild}
+          className="responsive-form"
         >
           <Form.Item
             name="name"
-            label="奖励名称"
+            label="孩子名称"
             rules={[
-              { required: true, message: '请输入奖励名称' },
+              { required: true, message: '请输入孩子名称' },
               { min: 2, message: '名称至少需要2个字符' },
-              { max: 15, message: '名称不能超过15个字符' }
+              { max: 10, message: '名称不能超过10个字符' }
             ]}
           >
             <Input 
-              placeholder="例如：完成作业、帮助家务等" 
+              placeholder="请输入孩子名称" 
               size="large"
-              style={{ borderRadius: '8px' }}
+              className="responsive-button"
             />
           </Form.Item>
-          <Form.Item
-            name="points"
-            label="奖励积分"
-            rules={[
-              { required: true, message: '请输入奖励积分' },
-              { type: 'number', min: 1, max: 100, message: '积分必须在1-100之间' }
-            ]}
-          >
-            <InputNumber 
-              min={1} 
-              max={100}
-              placeholder="请输入积分数值" 
-              size="large"
-              style={{ width: '100%', borderRadius: '8px' }} 
-            />
-          </Form.Item>
-          <Form.Item style={{ marginBottom: 0, marginTop: '24px' }}>
+          <Form.Item style={{ marginBottom: 0 }}>
             <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
               <Button 
-                onClick={() => setIsRewardModalOpen(false)}
-                style={{ borderRadius: '8px' }}
+                onClick={() => setIsChildModalOpen(false)}
+                className="responsive-button"
               >
                 取消
               </Button>
               <Button 
                 type="primary" 
                 htmlType="submit"
+                className="responsive-button"
                 style={{ 
-                  borderRadius: '8px',
                   background: 'linear-gradient(45deg, #52c41a, #73d13d)',
                   border: 'none',
                 }}
@@ -407,25 +523,89 @@ const SettingsPage: React.FC = () => {
         </Form>
       </Modal>
 
-      {/* 添加惩罚项的弹窗 */}
+      {/* 添加奖励弹窗 */}
       <Modal
-        title={
-          <div style={{ textAlign: 'center', fontSize: '18px', fontWeight: 'bold' }}>
-            <CloseCircleOutlined style={{ marginRight: '8px', color: '#ff4d4f' }} />
-            添加惩罚项目
-          </div>
-        }
+        title="添加奖励项目"
+        open={isRewardModalOpen}
+        onCancel={() => setIsRewardModalOpen(false)}
+        footer={null}
+        className="responsive-modal"
+      >
+        <Form
+          form={rewardForm}
+          layout="vertical"
+          onFinish={handleAddReward}
+          className="responsive-form"
+        >
+          <Form.Item
+            name="name"
+            label="奖励名称"
+            rules={[
+              { required: true, message: '请输入奖励名称' },
+              { min: 2, message: '名称至少需要2个字符' },
+              { max: 20, message: '名称不能超过20个字符' }
+            ]}
+          >
+            <Input 
+              placeholder="请输入奖励名称" 
+              size="large"
+              className="responsive-button"
+            />
+          </Form.Item>
+          <Form.Item
+            name="points"
+            label="奖励积分"
+            rules={[
+              { required: true, message: '请输入奖励积分' },
+              { type: 'number', min: 1, max: 100, message: '积分必须在1-100之间' }
+            ]}
+          >
+            <InputNumber 
+              placeholder="请输入积分数量" 
+              size="large"
+              min={1}
+              max={100}
+              style={{ width: '100%' }}
+              className="responsive-button"
+            />
+          </Form.Item>
+          <Form.Item style={{ marginBottom: 0 }}>
+            <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
+              <Button 
+                onClick={() => setIsRewardModalOpen(false)}
+                className="responsive-button"
+              >
+                取消
+              </Button>
+              <Button 
+                type="primary" 
+                htmlType="submit"
+                className="responsive-button"
+                style={{ 
+                  background: 'linear-gradient(45deg, #52c41a, #73d13d)',
+                  border: 'none',
+                }}
+              >
+                添加
+              </Button>
+            </Space>
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      {/* 添加惩罚弹窗 */}
+      <Modal
+        title="添加惩罚项目"
         open={isPunishmentModalOpen}
         onCancel={() => setIsPunishmentModalOpen(false)}
         footer={null}
-        width={400}
-        style={{ top: '20vh' }}
+        className="responsive-modal"
       >
         <Form
-          form={form}
+          form={punishmentForm}
           layout="vertical"
           onFinish={handleAddPunishment}
-          style={{ marginTop: '20px' }}
+          className="responsive-form"
         >
           <Form.Item
             name="name"
@@ -433,13 +613,13 @@ const SettingsPage: React.FC = () => {
             rules={[
               { required: true, message: '请输入惩罚名称' },
               { min: 2, message: '名称至少需要2个字符' },
-              { max: 15, message: '名称不能超过15个字符' }
+              { max: 20, message: '名称不能超过20个字符' }
             ]}
           >
             <Input 
-              placeholder="例如：迟到、不听话、乱扔东西等" 
+              placeholder="请输入惩罚名称" 
               size="large"
-              style={{ borderRadius: '8px' }}
+              className="responsive-button"
             />
           </Form.Item>
           <Form.Item
@@ -451,26 +631,27 @@ const SettingsPage: React.FC = () => {
             ]}
           >
             <InputNumber 
-              min={1} 
-              max={100}
-              placeholder="请输入积分数值" 
+              placeholder="请输入积分数量" 
               size="large"
-              style={{ width: '100%', borderRadius: '8px' }} 
+              min={1}
+              max={100}
+              style={{ width: '100%' }}
+              className="responsive-button"
             />
           </Form.Item>
-          <Form.Item style={{ marginBottom: 0, marginTop: '24px' }}>
+          <Form.Item style={{ marginBottom: 0 }}>
             <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
               <Button 
                 onClick={() => setIsPunishmentModalOpen(false)}
-                style={{ borderRadius: '8px' }}
+                className="responsive-button"
               >
                 取消
               </Button>
               <Button 
                 type="primary" 
                 htmlType="submit"
+                className="responsive-button"
                 style={{ 
-                  borderRadius: '8px',
                   background: 'linear-gradient(45deg, #ff4d4f, #ff7875)',
                   border: 'none',
                 }}

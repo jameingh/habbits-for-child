@@ -1,452 +1,431 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Button, Tabs, Empty, Modal, message, Card, Typography, Space, Avatar, Tag, Divider } from 'antd';
-import { HomeOutlined, TrophyOutlined, CloseCircleOutlined, HistoryOutlined, UserOutlined, StarOutlined, DeleteOutlined } from '@ant-design/icons';
-import { RewardPunishItem, PointRecord } from '../types';
+import { Button, Card, Tabs, Typography, List, Tag, Space, Modal, Empty, message } from 'antd';
+import { HomeOutlined, TrophyOutlined, CloseCircleOutlined, DeleteOutlined, UserOutlined } from '@ant-design/icons';
 import { useAppContext } from '../context/AppContext';
+import ChildAvatar from '../components/ChildAvatar';
 
-const { TabPane } = Tabs;
 const { Title, Text } = Typography;
+const { TabPane } = Tabs;
 
 const ChildRecordPage: React.FC = () => {
   const { childId } = useParams<{ childId: string }>();
   const navigate = useNavigate();
   const { children, rewardItems, punishmentItems, records, addRecord, deleteRecord } = useAppContext();
+  const [activeTab, setActiveTab] = useState('rewards');
 
-  // 从全局状态查找当前孩子
   const child = children.find(c => c.id === childId);
-
-  const [activeTab, setActiveTab] = useState('reward');
-  const [selectedItem, setSelectedItem] = useState<RewardPunishItem | null>(null);
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-
-  const handleHomeClick = () => {
-    navigate('/');
-  };
-
-  const handleItemClick = (item: RewardPunishItem) => {
-    setSelectedItem(item);
-    setIsConfirmModalOpen(true);
-  };
-
-  const handleConfirm = () => {
-    if (!child || !selectedItem) return;
-
-    addRecord({
-      childId: child.id,
-      itemId: selectedItem.id,
-      itemName: selectedItem.name,
-      points: selectedItem.points,
-      type: selectedItem.type,
-    });
-
-    setIsConfirmModalOpen(false);
-    message.success(`已${selectedItem.points > 0 ? '奖励' : '扣除'} ${Math.abs(selectedItem.points)} 分`);
-  };
+  const childRecords = records.filter(record => record.childId === childId);
 
   if (!child) {
     return (
-      <div style={{ 
-        minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '20px'
-      }}>
-        <Card style={{
-          background: 'rgba(255, 255, 255, 0.95)',
-          borderRadius: '16px',
-          backdropFilter: 'blur(10px)',
-          border: 'none',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-          textAlign: 'center',
-          padding: '40px',
-        }}>
-          <Empty description="未找到孩子信息" />
-          <Button 
-            type="primary" 
-            onClick={handleHomeClick}
-            style={{ 
-              marginTop: '20px',
-              borderRadius: '8px',
-              background: 'linear-gradient(45deg, #1890ff, #36cfc9)',
-              border: 'none',
-            }}
-          >
-            返回首页
-          </Button>
-        </Card>
+      <div className="responsive-container">
+        <div className="responsive-header">
+          <Title level={1} className="responsive-title" style={{ color: 'white', marginBottom: '8px' }}>
+            孩子不存在
+          </Title>
+          <Text className="responsive-text" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+            未找到指定的孩子信息
+          </Text>
+        </div>
+        
+        <div className="main-content-wrapper">
+          <Card className="responsive-card" bodyStyle={{ padding: '24px' }} style={{ width: '100%', maxWidth: '800px' }}>
+            <div className="responsive-content">
+              <div className="responsive-empty">
+                <Empty
+                  image={<UserOutlined style={{ fontSize: '64px', color: '#d9d9d9' }} />}
+                  description={
+                    <div>
+                      <Text strong className="responsive-subtitle" style={{ color: '#666', display: 'block' }}>
+                        找不到孩子信息
+                      </Text>
+                      <Text className="responsive-text" style={{ color: '#999' }}>
+                        请检查链接是否正确，或返回首页重新选择
+                      </Text>
+                    </div>
+                  }
+                />
+                <div className="responsive-spacing">
+                  <Button
+                    type="primary"
+                    size="large"
+                    icon={<HomeOutlined />}
+                    onClick={() => navigate('/')}
+                    className="responsive-button"
+                    style={{
+                      background: 'linear-gradient(45deg, #1890ff, #36cfc9)',
+                      border: 'none',
+                      fontSize: '16px',
+                      height: '48px',
+                      padding: '0 32px',
+                    }}
+                  >
+                    返回首页
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
       </div>
     );
   }
 
-  // 筛选当前孩子的记录
-  const childRecords = records.filter(record => record.childId === child.id);
+  const handleAddRecord = (item: any, type: 'reward' | 'punishment') => {
+    addRecord({
+      childId: child.id,
+      itemId: item.id,
+      itemName: item.name,
+      points: item.points,
+      type,
+    });
+    message.success(`${type === 'reward' ? '奖励' : '惩罚'}记录已添加`);
+  };
 
-  // 渲染项目卡片
-  const renderItemCard = (item: RewardPunishItem) => (
-    <Card
-      key={item.id}
-      hoverable
-      style={{
-        marginBottom: '12px',
-        borderRadius: '12px',
-        border: 'none',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
-        background: 'rgba(255, 255, 255, 0.9)',
-        transition: 'all 0.3s ease',
-      }}
-      bodyStyle={{ padding: '16px' }}
-      onClick={() => handleItemClick(item)}
-    >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ flex: 1 }}>
-          <Text strong style={{ fontSize: '16px', color: '#333' }}>
-            {item.name}
-          </Text>
-          <div style={{ marginTop: '4px' }}>
-            <Tag
-              color={item.type === 'reward' ? 'green' : 'red'}
-              style={{ borderRadius: '12px', fontSize: '12px' }}
-            >
-              {item.type === 'reward' ? '+' : ''}{item.points} 分
-            </Tag>
+  const handleDeleteRecord = (record: any) => {
+    Modal.confirm({
+      title: '确认删除记录',
+      content: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <ChildAvatar child={child} size={40} onClick={() => {}} />
+          <div>
+            <Text strong>{child.name}</Text>
+            <br />
+            <Text>{record.itemName}</Text>
+            <br />
+            <Text style={{ color: record.points > 0 ? '#52c41a' : '#ff4d4f' }}>
+              {record.points > 0 ? '+' : ''}{record.points} 分
+            </Text>
           </div>
         </div>
-        <Button
-          type={item.type === 'reward' ? 'primary' : 'default'}
-          danger={item.type === 'punishment'}
-          style={{
-            borderRadius: '8px',
-            background: item.type === 'reward' 
-              ? 'linear-gradient(45deg, #52c41a, #73d13d)' 
-              : 'linear-gradient(45deg, #ff4d4f, #ff7875)',
-            border: 'none',
-            color: 'white',
-          }}
-        >
-          {item.type === 'reward' ? '奖励' : '惩罚'}
-        </Button>
-      </div>
-    </Card>
+      ),
+      okText: '确认删除',
+      cancelText: '取消',
+      onOk: () => {
+        deleteRecord(record.id);
+        message.success('记录已删除');
+      }
+    });
+  };
+
+  const renderRewardTab = () => (
+    <div className="responsive-content">
+      {rewardItems.length === 0 ? (
+        <div className="responsive-empty">
+          <Empty
+            image={<TrophyOutlined style={{ fontSize: '64px', color: '#d9d9d9' }} />}
+            description={
+              <div>
+                <Text strong className="responsive-subtitle" style={{ color: '#666', display: 'block' }}>
+                  还没有奖励项目
+                </Text>
+                <Text className="responsive-text" style={{ color: '#999' }}>
+                  请先在设置页面添加奖励项目
+                </Text>
+              </div>
+            }
+          />
+          <div className="responsive-spacing">
+            <Button
+              type="primary"
+              size="large"
+              onClick={() => navigate('/settings')}
+              className="responsive-button"
+              style={{
+                background: 'linear-gradient(45deg, #52c41a, #73d13d)',
+                border: 'none',
+                fontSize: '16px',
+                height: '48px',
+                padding: '0 32px',
+              }}
+            >
+              去设置页面
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <div className="responsive-list">
+          <div className="responsive-grid" style={{ width: '100%' }}>
+            {rewardItems.map(item => (
+              <Card
+                key={item.id}
+                hoverable
+                className="responsive-card"
+                style={{
+                  cursor: 'pointer',
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  border: 'none',
+                  maxWidth: '300px',
+                }}
+                bodyStyle={{ padding: '20px', textAlign: 'center' }}
+                onClick={() => handleAddRecord(item, 'reward')}
+              >
+                <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+                  <TrophyOutlined style={{ fontSize: '32px', color: '#52c41a' }} />
+                  <div>
+                    <Title level={4} className="responsive-subtitle" style={{ margin: '8px 0 4px' }}>
+                      {item.name}
+                    </Title>
+                    <Text className="responsive-text" style={{ color: '#52c41a', fontWeight: 'bold', fontSize: '16px' }}>
+                      +{item.points} 分
+                    </Text>
+                  </div>
+                </Space>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   );
 
-  // 渲染记录卡片
-  const renderRecordCard = (record: PointRecord) => (
-    <Card
-      key={record.id}
-      style={{
-        marginBottom: '12px',
-        borderRadius: '12px',
-        border: 'none',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
-        background: 'rgba(255, 255, 255, 0.9)',
-      }}
-      bodyStyle={{ padding: '16px' }}
-    >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ flex: 1 }}>
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-            <Text strong style={{ fontSize: '16px', color: '#333' }}>
-              {record.itemName}
-            </Text>
-            <Tag
-              color={record.points > 0 ? 'green' : 'red'}
-              style={{ marginLeft: '8px', borderRadius: '12px' }}
+  const renderPunishmentTab = () => (
+    <div className="responsive-content">
+      {punishmentItems.length === 0 ? (
+        <div className="responsive-empty">
+          <Empty
+            image={<CloseCircleOutlined style={{ fontSize: '64px', color: '#d9d9d9' }} />}
+            description={
+              <div>
+                <Text strong className="responsive-subtitle" style={{ color: '#666', display: 'block' }}>
+                  还没有惩罚项目
+                </Text>
+                <Text className="responsive-text" style={{ color: '#999' }}>
+                  请先在设置页面添加惩罚项目
+                </Text>
+              </div>
+            }
+          />
+          <div className="responsive-spacing">
+            <Button
+              type="primary"
+              size="large"
+              onClick={() => navigate('/settings')}
+              className="responsive-button"
+              style={{
+                background: 'linear-gradient(45deg, #ff4d4f, #ff7875)',
+                border: 'none',
+                fontSize: '16px',
+                height: '48px',
+                padding: '0 32px',
+              }}
             >
-              {record.points > 0 ? '+' : ''}{record.points} 分
-            </Tag>
+              去设置页面
+            </Button>
           </div>
-          <Text style={{ fontSize: '12px', color: '#999' }}>
-            {new Date(record.date).toLocaleString()}
-          </Text>
         </div>
-        <Button
-          danger
-          size="small"
-          icon={<DeleteOutlined />}
-          style={{
-            borderRadius: '6px',
-            border: 'none',
-            background: 'rgba(255, 77, 79, 0.1)',
-            color: '#ff4d4f',
-          }}
-          onClick={() => {
-            Modal.confirm({
-              title: '确认删除',
-              content: `确定要删除这条记录吗？`,
-              okText: '确认',
-              cancelText: '取消',
-              onOk: () => {
-                deleteRecord(record.id);
-                message.success('删除成功');
-              }
-            });
-          }}
-        >
-          删除
-        </Button>
-      </div>
-    </Card>
+      ) : (
+        <div className="responsive-list">
+          <div className="responsive-grid" style={{ width: '100%' }}>
+            {punishmentItems.map(item => (
+              <Card
+                key={item.id}
+                hoverable
+                className="responsive-card"
+                style={{
+                  cursor: 'pointer',
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  border: 'none',
+                  maxWidth: '300px',
+                }}
+                bodyStyle={{ padding: '20px', textAlign: 'center' }}
+                onClick={() => handleAddRecord(item, 'punishment')}
+              >
+                <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+                  <CloseCircleOutlined style={{ fontSize: '32px', color: '#ff4d4f' }} />
+                  <div>
+                    <Title level={4} className="responsive-subtitle" style={{ margin: '8px 0 4px' }}>
+                      {item.name}
+                    </Title>
+                    <Text className="responsive-text" style={{ color: '#ff4d4f', fontWeight: 'bold', fontSize: '16px' }}>
+                      {item.points} 分
+                    </Text>
+                  </div>
+                </Space>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  const renderRecordsTab = () => (
+    <div className="responsive-content">
+      {childRecords.length === 0 ? (
+        <div className="responsive-empty">
+          <Empty
+            image={<TrophyOutlined style={{ fontSize: '64px', color: '#d9d9d9' }} />}
+            description={
+              <div>
+                <Text strong className="responsive-subtitle" style={{ color: '#666', display: 'block' }}>
+                  还没有记录
+                </Text>
+                <Text className="responsive-text" style={{ color: '#999' }}>
+                  开始给 {child.name} 添加奖励或惩罚记录吧
+                </Text>
+              </div>
+            }
+          />
+        </div>
+      ) : (
+        <div className="responsive-list">
+          <List
+            dataSource={childRecords}
+            renderItem={(record) => (
+              <List.Item
+                key={record.id}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  margin: '8px 0',
+                  padding: '16px',
+                  borderRadius: '12px',
+                  border: 'none',
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                }}
+                actions={[
+                  <Button
+                    key="delete"
+                    type="text"
+                    danger
+                    icon={<DeleteOutlined />}
+                    onClick={() => handleDeleteRecord(record)}
+                    className="responsive-button"
+                    style={{
+                      color: '#ff4d4f',
+                      background: 'rgba(255, 77, 79, 0.1)',
+                      border: 'none',
+                      borderRadius: '6px',
+                    }}
+                  >
+                    删除
+                  </Button>
+                ]}
+              >
+                <List.Item.Meta
+                  avatar={
+                    record.type === 'reward' ? (
+                      <TrophyOutlined style={{ fontSize: '24px', color: '#52c41a' }} />
+                    ) : (
+                      <CloseCircleOutlined style={{ fontSize: '24px', color: '#ff4d4f' }} />
+                    )
+                  }
+                  title={
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Text strong className="responsive-subtitle">{record.itemName}</Text>
+                      <Tag 
+                        color={record.points > 0 ? 'green' : 'red'}
+                        style={{ fontSize: '14px', fontWeight: 'bold' }}
+                      >
+                        {record.points > 0 ? '+' : ''}{record.points} 分
+                      </Tag>
+                    </div>
+                  }
+                  description={
+                    <Text className="responsive-text" style={{ color: '#666' }}>
+                      {new Date(record.date).toLocaleString('zh-CN')}
+                    </Text>
+                  }
+                />
+              </List.Item>
+            )}
+          />
+        </div>
+      )}
+    </div>
   );
 
   return (
-    <div 
-      className="child-record-page" 
-      style={{ 
-        minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        padding: '20px',
-      }}
-    >
-      {/* 顶部导航栏 */}
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center',
-        marginBottom: '30px',
-        padding: '0 10px'
-      }}>
+    <div className="responsive-container">
+      {/* 头部区域 */}
+      <div className="responsive-header">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginBottom: '16px' }}>
+          <ChildAvatar child={child} size={64} className="responsive-avatar" onClick={() => {}} />
+          <div style={{ textAlign: 'center' }}>
+            <Title level={1} className="responsive-title" style={{ color: 'white', marginBottom: '4px' }}>
+              {child.name}
+            </Title>
+            <Text className="responsive-text" style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '18px' }}>
+              当前积分：
+              <Text strong style={{ color: child.points >= 0 ? '#52c41a' : '#ff4d4f', marginLeft: '4px' }}>
+                {child.points}
+              </Text>
+            </Text>
+          </div>
+        </div>
+        <Text className="responsive-text" style={{ color: 'rgba(255, 255, 255, 0.8)', textAlign: 'center', display: 'block' }}>
+          记录 {child.name} 的奖励与惩罚
+        </Text>
+      </div>
+
+      {/* 导航栏 */}
+      <div className="responsive-navbar">
         <Button
           type="text"
           icon={<HomeOutlined />}
+          onClick={() => navigate('/')}
+          className="responsive-button"
           style={{
             color: 'white',
-            fontSize: '20px',
-            width: '44px',
-            height: '44px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             background: 'rgba(255, 255, 255, 0.2)',
-            borderRadius: '50%',
-            backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255, 255, 255, 0.3)',
+            backdropFilter: 'blur(10px)',
           }}
-          onClick={handleHomeClick}
-        />
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Avatar 
-            size={40} 
-            icon={<UserOutlined />} 
-            src={child.avatar}
-            style={{ 
-              backgroundColor: !child.avatar ? '#1890ff' : undefined,
-              border: '2px solid white',
-            }}
-          />
-          <div style={{ textAlign: 'center' }}>
-            <Title 
-              level={2} 
-              style={{ 
-                color: 'white', 
-                margin: 0,
-                textShadow: '0 2px 4px rgba(0,0,0,0.3)',
-                fontSize: '24px'
-              }}
-            >
-              {child.name}
-            </Title>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
-              <StarOutlined style={{ color: '#faad14' }} />
-              <Text style={{ color: 'white', fontSize: '16px', fontWeight: 'bold' }}>
-                {child.points} 积分
-              </Text>
-            </div>
-          </div>
-        </div>
-        <div style={{ width: '44px' }}></div>
+        >
+          返回首页
+        </Button>
+        <div></div>
       </div>
 
-      {/* 主要内容区域 */}
-      <Card
-        style={{
-          background: 'rgba(255, 255, 255, 0.95)',
-          borderRadius: '16px',
-          backdropFilter: 'blur(10px)',
-          border: 'none',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-          marginBottom: '20px',
-        }}
-        bodyStyle={{ padding: '24px' }}
-      >
-        <Tabs 
-          activeKey={activeTab}
-          onChange={setActiveTab}
-          size="large"
-        >
-          <TabPane
-            tab={
-              <span style={{ fontSize: '16px', fontWeight: '500' }}>
-                <TrophyOutlined style={{ marginRight: '8px' }} />
-                奖励项目
-              </span>
-            }
-            key="reward"
+      {/* 主内容区域包装器 */}
+      <div className="main-content-wrapper">
+        {/* 主要内容区域 */}
+        <Card className="responsive-card" bodyStyle={{ padding: '24px' }} style={{ width: '100%', maxWidth: '800px' }}>
+          <Tabs 
+            activeKey={activeTab}
+            onChange={setActiveTab}
+            size="large"
+            className="responsive-tabs"
           >
-            <div style={{ minHeight: '400px' }}>
-              {rewardItems.length === 0 ? (
-                <Empty
-                  image={<TrophyOutlined style={{ fontSize: '48px', color: '#d9d9d9' }} />}
-                  description={
-                    <Text style={{ color: '#666' }}>
-                      还没有奖励项目<br />
-                      <Text style={{ fontSize: '12px', color: '#999' }}>
-                        请在设置中添加奖励项目
-                      </Text>
-                    </Text>
-                  }
-                  style={{ marginTop: '60px' }}
-                />
-              ) : (
-                <div style={{ maxHeight: '400px', overflowY: 'auto', paddingRight: '8px' }}>
-                  {rewardItems.map(item => renderItemCard(item))}
-                </div>
-              )}
-            </div>
-          </TabPane>
-
-          <TabPane
-            tab={
-              <span style={{ fontSize: '16px', fontWeight: '500' }}>
-                <CloseCircleOutlined style={{ marginRight: '8px' }} />
-                惩罚项目
-              </span>
-            }
-            key="punishment"
-          >
-            <div style={{ minHeight: '400px' }}>
-              {punishmentItems.length === 0 ? (
-                <Empty
-                  image={<CloseCircleOutlined style={{ fontSize: '48px', color: '#d9d9d9' }} />}
-                  description={
-                    <Text style={{ color: '#666' }}>
-                      还没有惩罚项目<br />
-                      <Text style={{ fontSize: '12px', color: '#999' }}>
-                        请在设置中添加惩罚项目
-                      </Text>
-                    </Text>
-                  }
-                  style={{ marginTop: '60px' }}
-                />
-              ) : (
-                <div style={{ maxHeight: '400px', overflowY: 'auto', paddingRight: '8px' }}>
-                  {punishmentItems.map(item => renderItemCard(item))}
-                </div>
-              )}
-            </div>
-          </TabPane>
-
-          <TabPane
-            tab={
-              <span style={{ fontSize: '16px', fontWeight: '500' }}>
-                <HistoryOutlined style={{ marginRight: '8px' }} />
-                积分记录
-              </span>
-            }
-            key="records"
-          >
-            <div style={{ minHeight: '400px' }}>
-              {childRecords.length === 0 ? (
-                <Empty
-                  image={<HistoryOutlined style={{ fontSize: '48px', color: '#d9d9d9' }} />}
-                  description={
-                    <Text style={{ color: '#666' }}>
-                      还没有积分记录<br />
-                      <Text style={{ fontSize: '12px', color: '#999' }}>
-                        开始奖励或惩罚来创建第一条记录
-                      </Text>
-                    </Text>
-                  }
-                  style={{ marginTop: '60px' }}
-                />
-              ) : (
-                <div style={{ maxHeight: '400px', overflowY: 'auto', paddingRight: '8px' }}>
-                  {childRecords.map(record => renderRecordCard(record))}
-                </div>
-              )}
-            </div>
-          </TabPane>
-        </Tabs>
-      </Card>
-
-      {/* 确认弹窗 */}
-      <Modal
-        title={
-          <div style={{ textAlign: 'center', fontSize: '18px', fontWeight: 'bold' }}>
-            {selectedItem && selectedItem.points > 0 ? (
-              <>
-                <TrophyOutlined style={{ marginRight: '8px', color: '#52c41a' }} />
-                确认奖励
-              </>
-            ) : (
-              <>
-                <CloseCircleOutlined style={{ marginRight: '8px', color: '#ff4d4f' }} />
-                确认惩罚
-              </>
-            )}
-          </div>
-        }
-        open={isConfirmModalOpen}
-        onCancel={() => setIsConfirmModalOpen(false)}
-        footer={
-          <Space>
-            <Button 
-              onClick={() => setIsConfirmModalOpen(false)}
-              style={{ borderRadius: '8px' }}
+            <TabPane
+              tab={
+                <span className="responsive-text">
+                  <TrophyOutlined style={{ marginRight: '8px' }} />
+                  奖励
+                </span>
+              }
+              key="rewards"
             >
-              取消
-            </Button>
-            <Button 
-              type="primary" 
-              onClick={handleConfirm}
-              style={{ 
-                borderRadius: '8px',
-                background: selectedItem && selectedItem.points > 0 
-                  ? 'linear-gradient(45deg, #52c41a, #73d13d)' 
-                  : 'linear-gradient(45deg, #ff4d4f, #ff7875)',
-                border: 'none',
-              }}
+              {renderRewardTab()}
+            </TabPane>
+            
+            <TabPane
+              tab={
+                <span className="responsive-text">
+                  <CloseCircleOutlined style={{ marginRight: '8px' }} />
+                  惩罚
+                </span>
+              }
+              key="punishments"
             >
-              确认
-            </Button>
-          </Space>
-        }
-        width={400}
-        style={{ top: '20vh' }}
-      >
-        <div style={{ padding: '20px 0', textAlign: 'center' }}>
-          <Avatar 
-            size={64} 
-            icon={<UserOutlined />} 
-            src={child.avatar}
-            style={{ 
-              backgroundColor: !child.avatar ? '#1890ff' : undefined,
-              marginBottom: '16px',
-            }}
-          />
-          <Title level={4} style={{ marginBottom: '8px' }}>
-            {child.name}
-          </Title>
-          <Text style={{ fontSize: '16px', color: '#666' }}>
-            确定要{selectedItem && selectedItem.points > 0 ? '奖励' : '惩罚'} {child.name} 吗？
-          </Text>
-          <Divider />
-          <div style={{ background: '#f5f5f5', padding: '16px', borderRadius: '8px', marginTop: '16px' }}>
-            <Text strong style={{ fontSize: '16px' }}>
-              {selectedItem?.name}
-            </Text>
-            <br />
-            <Tag
-              color={selectedItem && selectedItem.points > 0 ? 'green' : 'red'}
-              style={{ marginTop: '8px', fontSize: '14px', padding: '4px 12px' }}
+              {renderPunishmentTab()}
+            </TabPane>
+            
+            <TabPane
+              tab={
+                <span className="responsive-text">
+                  <UserOutlined style={{ marginRight: '8px' }} />
+                  记录
+                </span>
+              }
+              key="records"
             >
-              {selectedItem && selectedItem.points > 0 ? '+' : ''}{selectedItem?.points} 分
-            </Tag>
-          </div>
-        </div>
-      </Modal>
+              {renderRecordsTab()}
+            </TabPane>
+          </Tabs>
+        </Card>
+      </div>
     </div>
   );
 };

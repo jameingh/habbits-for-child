@@ -1,8 +1,16 @@
 {
-  "name": "habbits_for_child",
+  "name": "habits-for-child",
+  "version": "1.0.0",
+  "description": "一个基于React + TypeScript的现代化儿童习惯养成积分奖励管理系统",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "keywords": ["react", "typescript", "vite", "antd", "children", "habits", "reward", "points"],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/habits-for-child.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Tabs, List, Modal, Form, Input, InputNumber, message, Card, Typography, Space, Empty, Divider } from 'antd';
-import { PlusOutlined, HomeOutlined, TrophyOutlined, CloseCircleOutlined, DatabaseOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Button, Tabs, Modal, Form, Input, InputNumber, message, Card, Typography, Space, Empty } from 'antd';
+import { PlusOutlined, HomeOutlined, TrophyOutlined, CloseCircleOutlined, DatabaseOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { RewardPunishItem } from '../types';
 import { useAppContext } from '../context/AppContext';

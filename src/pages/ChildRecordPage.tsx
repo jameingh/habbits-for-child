@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Button, List, Tabs, Empty, Modal, message, Card, Typography, Space, Avatar, Tag, Divider } from 'antd';
+import { Button, Tabs, Empty, Modal, message, Card, Typography, Space, Avatar, Tag, Divider } from 'antd';
 import { HomeOutlined, TrophyOutlined, CloseCircleOutlined, HistoryOutlined, UserOutlined, StarOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Child, RewardPunishItem, PointRecord } from '../types';
+import { RewardPunishItem, PointRecord } from '../types';
 import { useAppContext } from '../context/AppContext';
 
 const { TabPane } = Tabs;
@@ -375,7 +375,7 @@ const ChildRecordPage: React.FC = () => {
       <Modal
         title={
           <div style={{ textAlign: 'center', fontSize: '18px', fontWeight: 'bold' }}>
-            {selectedItem?.points > 0 ? (
+            {selectedItem && selectedItem.points > 0 ? (
               <>
                 <TrophyOutlined style={{ marginRight: '8px', color: '#52c41a' }} />
                 确认奖励
@@ -403,7 +403,7 @@ const ChildRecordPage: React.FC = () => {
               onClick={handleConfirm}
               style={{ 
                 borderRadius: '8px',
-                background: selectedItem?.points > 0 
+                background: selectedItem && selectedItem.points > 0 
                   ? 'linear-gradient(45deg, #52c41a, #73d13d)' 
                   : 'linear-gradient(45deg, #ff4d4f, #ff7875)',
                 border: 'none',
@@ -430,7 +430,7 @@ const ChildRecordPage: React.FC = () => {
             {child.name}
           </Title>
           <Text style={{ fontSize: '16px', color: '#666' }}>
-            确定要{selectedItem?.points > 0 ? '奖励' : '惩罚'} {child.name} 吗？
+            确定要{selectedItem && selectedItem.points > 0 ? '奖励' : '惩罚'} {child.name} 吗？
           </Text>
           <Divider />
           <div style={{ background: '#f5f5f5', padding: '16px', borderRadius: '8px', marginTop: '16px' }}>
@@ -439,10 +439,10 @@ const ChildRecordPage: React.FC = () => {
             </Text>
             <br />
             <Tag
-              color={selectedItem?.points > 0 ? 'green' : 'red'}
+              color={selectedItem && selectedItem.points > 0 ? 'green' : 'red'}
               style={{ marginTop: '8px', fontSize: '14px', padding: '4px 12px' }}
             >
-              {selectedItem?.points > 0 ? '+' : ''}{selectedItem?.points} 分
+              {selectedItem && selectedItem.points > 0 ? '+' : ''}{selectedItem?.points} 分
             </Tag>
           </div>
         </div>

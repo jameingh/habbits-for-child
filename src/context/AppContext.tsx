@@ -35,7 +35,7 @@ interface AppProviderProps {
 }
 
 // 安全的数据加载函数
-const loadFromStorage = <T>(key: string, defaultValue: T): T => {
+const loadFromStorage = <T,>(key: string, defaultValue: T): T => {
   try {
     const stored = localStorage.getItem(key);
     if (stored === null) {
@@ -53,7 +53,7 @@ const loadFromStorage = <T>(key: string, defaultValue: T): T => {
 };
 
 // 安全的数据保存函数
-const saveToStorage = <T>(key: string, data: T): void => {
+const saveToStorage = <T,>(key: string, data: T): void => {
   try {
     const serialized = JSON.stringify(data);
     localStorage.setItem(key, serialized);
@@ -61,7 +61,7 @@ const saveToStorage = <T>(key: string, data: T): void => {
   } catch (error) {
     console.error(`[数据保存错误] ${key}:`, error);
     // 如果是存储空间不足的错误，尝试清理旧数据
-    if (error.name === 'QuotaExceededError') {
+    if (error instanceof Error && error.name === 'QuotaExceededError') {
       console.warn('[存储空间不足] 尝试清理数据...');
       // 这里可以添加清理逻辑
     }

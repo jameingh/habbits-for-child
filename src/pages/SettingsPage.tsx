@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Tabs, Modal, Form, Input, InputNumber, message, Card, Typography, Space, Empty, Row, Col } from 'antd';
-import { PlusOutlined, HomeOutlined, TrophyOutlined, CloseCircleOutlined, DatabaseOutlined, DeleteOutlined, EditOutlined, GiftOutlined, WarningOutlined } from '@ant-design/icons';
+import { PlusOutlined, HomeOutlined, TrophyOutlined, DatabaseOutlined, DeleteOutlined, GiftOutlined, WarningOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 

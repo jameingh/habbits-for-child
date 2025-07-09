@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Button, Card, Tabs, Typography, List, Tag, Space, Modal, Empty, message, Row, Col } from 'antd';
-import { HomeOutlined, TrophyOutlined, CloseCircleOutlined, DeleteOutlined, UserOutlined, GiftOutlined, WarningOutlined, HistoryOutlined } from '@ant-design/icons';
+import { Button, Card, Tabs, Typography, List, Modal, Empty, message, Row, Col } from 'antd';
+import { HomeOutlined, DeleteOutlined, UserOutlined, GiftOutlined, WarningOutlined, HistoryOutlined } from '@ant-design/icons';
 import { useAppContext } from '../context/AppContext';
 import ChildAvatar from '../components/ChildAvatar';
 

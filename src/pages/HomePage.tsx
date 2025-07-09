@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card, Typography, Empty, Space, Row, Col, Tooltip } from 'antd';
+import { Button, Card, Typography, Empty, Row, Col, Tooltip } from 'antd';
 import { PlusOutlined, SettingOutlined, UserOutlined, TrophyOutlined } from '@ant-design/icons';
 import { useAppContext } from '../context/AppContext';
 import ChildAvatar from '../components/ChildAvatar';

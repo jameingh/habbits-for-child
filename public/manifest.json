@@ -1,0 +1,59 @@
+{
+  "name": "儿童习惯养成积分系统",
+  "short_name": "习惯养成",
+  "description": "一个现代化的儿童习惯养成积分奖励管理系统",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#e8f4f8",
+  "theme_color": "#e8f4f8",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["education", "lifestyle", "productivity"],
+  "shortcuts": [
+    {
+      "name": "添加孩子",
+      "short_name": "添加孩子",
+      "description": "快速添加新的孩子",
+      "url": "/?action=add-child",
+      "icons": [
+        {
+          "src": "/vite.svg",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "设置",
+      "short_name": "设置",
+      "description": "管理奖励和惩罚项目",
+      "url": "/settings",
+      "icons": [
+        {
+          "src": "/vite.svg",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+} 

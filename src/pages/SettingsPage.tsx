@@ -303,24 +303,6 @@ const SettingsPage: React.FC = () => {
             管理孩子信息、奖励和惩罚项目
           </Text>
         </div>
-        
-        {/* 导航按钮 */}
-        <div className="nav-buttons">
-          <Button
-            className="nav-button"
-            icon={<HomeOutlined />}
-            onClick={handleHomeClick}
-          >
-            返回首页
-          </Button>
-          <Button
-            className="nav-button data-button"
-            icon={<DatabaseOutlined />}
-            onClick={handleDataManageClick}
-          >
-            数据管理
-          </Button>
-        </div>
       </div>
 
       {/* 主要内容区域 */}
@@ -373,6 +355,24 @@ const SettingsPage: React.FC = () => {
           icon={<PlusOutlined />}
           size="large"
         />
+      </div>
+
+      {/* 导航按钮 */}
+      <div className="nav-buttons">
+        <Button
+          className="nav-button"
+          icon={<HomeOutlined />}
+          onClick={handleHomeClick}
+        >
+          返回首页
+        </Button>
+        <Button
+          className="nav-button data-button"
+          icon={<DatabaseOutlined />}
+          onClick={handleDataManageClick}
+        >
+          数据管理
+        </Button>
       </div>
 
       {/* 添加孩子弹窗 */}

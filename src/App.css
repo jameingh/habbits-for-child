@@ -16,7 +16,7 @@
 /* 标题区域 */
 .hero-section {
   text-align: center;
-  padding: 3rem 2rem;
+  padding: 2rem 1.5rem;
   background: transparent;
   width: 100%;
   max-width: 600px;
@@ -276,6 +276,34 @@
   box-shadow: var(--shadow-xl) !important;
 }
 
+/* 悬浮返回按钮 */
+.floating-home-button {
+  position: absolute !important;
+  bottom: 1.5rem !important;
+  left: 1rem !important;
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: var(--radius-xl) !important;
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 600 !important;
+  box-shadow: var(--shadow-xl) !important;
+  backdrop-filter: blur(10px) !important;
+  transition: all 0.3s ease !important;
+  z-index: 100 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+.floating-home-button:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: var(--shadow-xl) !important;
+  background: var(--primary-gradient) !important;
+  color: white !important;
+  border-color: transparent !important;
+}
+
 /* 设置页面样式 */
 .settings-container {
   min-height: 100vh;
@@ -305,7 +333,7 @@
 .nav-buttons {
   display: flex;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -599,13 +627,14 @@
 /* 孩子记录页面 */
 .child-record-container {
   min-height: 100vh;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
 }
 
 .child-header {
@@ -906,11 +935,11 @@
   .settings-container,
   .child-record-container {
     padding: 1rem 1rem;
-    gap: 1.5rem;
+    gap: 1.25rem;
   }
 
   .hero-section {
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
   }
 
   .hero-title {
@@ -984,6 +1013,13 @@
     right: 1.5rem !important;
   }
 
+  .floating-home-button {
+    bottom: 1rem !important;
+    left: 1rem !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.875rem !important;
+  }
+
   .nav-buttons {
     flex-direction: column;
     align-items: center;
@@ -1026,12 +1062,12 @@
   .home-container,
   .settings-container,
   .child-record-container {
-    padding: 1rem 0.75rem;
+    padding: 0.75rem 0.75rem;
     gap: 1rem;
   }
 
   .hero-section {
-    padding: 1.5rem 1rem;
+    padding: 1.25rem 1rem;
   }
 
   .hero-title {

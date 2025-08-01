@@ -284,17 +284,6 @@ const ChildRecordPage: React.FC = () => {
             </div>
           </div>
         </div>
-        
-        {/* 返回按钮 */}
-        <div className="nav-buttons">
-          <Button
-            className="nav-button"
-            icon={<HomeOutlined />}
-            onClick={() => navigate('/')}
-          >
-            返回首页
-          </Button>
-        </div>
       </div>
 
       {/* 主要内容区域 */}
@@ -340,6 +329,16 @@ const ChildRecordPage: React.FC = () => {
           />
         </Card>
       </div>
+      
+      {/* 悬浮返回按钮 */}
+      <Button
+        className="floating-home-button"
+        icon={<HomeOutlined />}
+        onClick={() => navigate('/')}
+        size="large"
+      >
+        返回首页
+      </Button>
     </div>
   );
 };

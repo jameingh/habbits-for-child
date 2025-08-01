@@ -92,9 +92,9 @@ const SettingsPage: React.FC = () => {
         </div>
       ) : (
         <div className="items-grid">
-          <Row gutter={[20, 20]}>
+          <Row gutter={[16, 16]}>
             {children.map(child => (
-              <Col key={child.id} xs={24} sm={12} md={8} lg={6}>
+              <Col key={child.id} xs={24} sm={24} md={12} lg={12} xl={8}>
                 <Card className="item-card">
                   <div className="item-content">
                     <div className="item-icon child-icon">
@@ -159,9 +159,9 @@ const SettingsPage: React.FC = () => {
         </div>
       ) : (
         <div className="items-grid">
-          <Row gutter={[20, 20]}>
+          <Row gutter={[16, 16]}>
             {rewardItems.map(item => (
-              <Col key={item.id} xs={24} sm={12} md={8} lg={6}>
+              <Col key={item.id} xs={24} sm={24} md={12} lg={12} xl={8}>
                 <Card className="item-card reward-card">
                   <div className="item-content">
                     <div className="item-icon reward-icon">
@@ -226,9 +226,9 @@ const SettingsPage: React.FC = () => {
         </div>
       ) : (
         <div className="items-grid">
-          <Row gutter={[20, 20]}>
+          <Row gutter={[16, 16]}>
             {punishmentItems.map(item => (
-              <Col key={item.id} xs={24} sm={12} md={8} lg={6}>
+              <Col key={item.id} xs={24} sm={24} md={12} lg={12} xl={8}>
                 <Card className="item-card punishment-card">
                   <div className="item-content">
                     <div className="item-icon punishment-icon">

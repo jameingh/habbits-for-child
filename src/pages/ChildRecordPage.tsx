@@ -126,7 +126,7 @@ const ChildRecordPage: React.FC = () => {
         <div className="items-grid">
           <Row gutter={[20, 20]}>
             {rewardItems.map(item => (
-              <Col key={item.id} xs={24} sm={12} md={8} lg={6}>
+              <Col key={item.id} xs={24} sm={12} md={8} lg={8}>
                 <Card 
                   className="record-item-card reward-item"
                   onClick={() => handleAddRecord(item, 'reward')}
@@ -179,7 +179,7 @@ const ChildRecordPage: React.FC = () => {
         <div className="items-grid">
           <Row gutter={[20, 20]}>
             {punishmentItems.map(item => (
-              <Col key={item.id} xs={24} sm={12} md={8} lg={6}>
+              <Col key={item.id} xs={24} sm={12} md={8} lg={8}>
                 <Card 
                   className="record-item-card punishment-item"
                   onClick={() => handleAddRecord(item, 'punishment')}

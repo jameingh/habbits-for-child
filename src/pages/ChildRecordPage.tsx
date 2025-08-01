@@ -46,7 +46,7 @@ const ChildRecordPage: React.FC = () => {
               />
               <div className="empty-action">
                 <Button
-                  className="clay-button add-button"
+                  className="add-button"
                   icon={<HomeOutlined />}
                   onClick={() => navigate('/')}
                 >
@@ -115,7 +115,7 @@ const ChildRecordPage: React.FC = () => {
           />
           <div className="empty-action">
             <Button
-              className="clay-button add-button reward-button"
+              className="add-button reward-button"
               onClick={() => navigate('/settings')}
             >
               去设置页面
@@ -128,7 +128,7 @@ const ChildRecordPage: React.FC = () => {
             {rewardItems.map(item => (
               <Col key={item.id} xs={24} sm={12} md={8} lg={6}>
                 <Card 
-                  className="clay-element record-item-card reward-item"
+                  className="record-item-card reward-item"
                   onClick={() => handleAddRecord(item, 'reward')}
                 >
                   <div className="record-item-content">
@@ -168,7 +168,7 @@ const ChildRecordPage: React.FC = () => {
           />
           <div className="empty-action">
             <Button
-              className="clay-button add-button punishment-button"
+              className="add-button punishment-button"
               onClick={() => navigate('/settings')}
             >
               去设置页面
@@ -181,7 +181,7 @@ const ChildRecordPage: React.FC = () => {
             {punishmentItems.map(item => (
               <Col key={item.id} xs={24} sm={12} md={8} lg={6}>
                 <Card 
-                  className="clay-element record-item-card punishment-item"
+                  className="record-item-card punishment-item"
                   onClick={() => handleAddRecord(item, 'punishment')}
                 >
                   <div className="record-item-content">
@@ -226,7 +226,7 @@ const ChildRecordPage: React.FC = () => {
             dataSource={childRecords}
             renderItem={(record) => (
               <List.Item className="record-list-item">
-                <Card className="clay-element record-history-card">
+                <Card className="record-history-card">
                   <div className="record-history-content">
                     <div className={`record-type-icon ${record.type}-icon`}>
                       {record.type === 'reward' ? <GiftOutlined /> : <WarningOutlined />}
@@ -249,7 +249,7 @@ const ChildRecordPage: React.FC = () => {
                       </Text>
                     </div>
                     <Button
-                      className="clay-button delete-record-button"
+                      className="delete-record-button"
                       icon={<DeleteOutlined />}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -288,7 +288,7 @@ const ChildRecordPage: React.FC = () => {
         {/* 返回按钮 */}
         <div className="nav-buttons">
           <Button
-            className="clay-button nav-button"
+            className="nav-button"
             icon={<HomeOutlined />}
             onClick={() => navigate('/')}
           >
@@ -299,7 +299,7 @@ const ChildRecordPage: React.FC = () => {
 
       {/* 主要内容区域 */}
       <div className="main-content">
-        <Card className="clay-element record-card">
+        <Card className="record-card">
           <Tabs 
             activeKey={activeTab}
             onChange={setActiveTab}

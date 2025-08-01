@@ -82,7 +82,7 @@ const SettingsPage: React.FC = () => {
           />
           <div className="empty-action">
             <Button
-              className="clay-button add-button"
+              className="add-button"
               icon={<PlusOutlined />}
               onClick={() => setIsChildModalOpen(true)}
             >
@@ -95,7 +95,7 @@ const SettingsPage: React.FC = () => {
           <Row gutter={[20, 20]}>
             {children.map(child => (
               <Col key={child.id} xs={24} sm={12} md={8} lg={6}>
-                <Card className="clay-element item-card">
+                <Card className="item-card">
                   <div className="item-content">
                     <div className="item-icon child-icon">
                       <TrophyOutlined />
@@ -107,7 +107,7 @@ const SettingsPage: React.FC = () => {
                       </Text>
                     </div>
                     <Button
-                      className="clay-button delete-button"
+                      className="delete-button"
                       icon={<DeleteOutlined />}
                       onClick={() => {
                         Modal.confirm({
@@ -149,7 +149,7 @@ const SettingsPage: React.FC = () => {
           />
           <div className="empty-action">
             <Button
-              className="clay-button add-button reward-button"
+              className="add-button reward-button"
               icon={<PlusOutlined />}
               onClick={() => setIsRewardModalOpen(true)}
             >
@@ -162,7 +162,7 @@ const SettingsPage: React.FC = () => {
           <Row gutter={[20, 20]}>
             {rewardItems.map(item => (
               <Col key={item.id} xs={24} sm={12} md={8} lg={6}>
-                <Card className="clay-element item-card reward-card">
+                <Card className="item-card reward-card">
                   <div className="item-content">
                     <div className="item-icon reward-icon">
                       <GiftOutlined />
@@ -174,7 +174,7 @@ const SettingsPage: React.FC = () => {
                       </Text>
                     </div>
                     <Button
-                      className="clay-button delete-button"
+                      className="delete-button"
                       icon={<DeleteOutlined />}
                       onClick={() => {
                         Modal.confirm({
@@ -216,7 +216,7 @@ const SettingsPage: React.FC = () => {
           />
           <div className="empty-action">
             <Button
-              className="clay-button add-button punishment-button"
+              className="add-button punishment-button"
               icon={<PlusOutlined />}
               onClick={() => setIsPunishmentModalOpen(true)}
             >
@@ -229,7 +229,7 @@ const SettingsPage: React.FC = () => {
           <Row gutter={[20, 20]}>
             {punishmentItems.map(item => (
               <Col key={item.id} xs={24} sm={12} md={8} lg={6}>
-                <Card className="clay-element item-card punishment-card">
+                <Card className="item-card punishment-card">
                   <div className="item-content">
                     <div className="item-icon punishment-icon">
                       <WarningOutlined />
@@ -241,7 +241,7 @@ const SettingsPage: React.FC = () => {
                       </Text>
                     </div>
                     <Button
-                      className="clay-button delete-button"
+                      className="delete-button"
                       icon={<DeleteOutlined />}
                       onClick={() => {
                         Modal.confirm({
@@ -307,14 +307,14 @@ const SettingsPage: React.FC = () => {
         {/* 导航按钮 */}
         <div className="nav-buttons">
           <Button
-            className="clay-button nav-button"
+            className="nav-button"
             icon={<HomeOutlined />}
             onClick={handleHomeClick}
           >
             返回首页
           </Button>
           <Button
-            className="clay-button nav-button data-button"
+            className="nav-button data-button"
             icon={<DatabaseOutlined />}
             onClick={handleDataManageClick}
           >
@@ -325,7 +325,7 @@ const SettingsPage: React.FC = () => {
 
       {/* 主要内容区域 */}
       <div className="main-content">
-        <Card className="clay-element settings-card">
+        <Card className="settings-card">
           <Tabs 
             activeKey={activeTab}
             onChange={setActiveTab}
@@ -403,14 +403,14 @@ const SettingsPage: React.FC = () => {
             <Space>
               <Button 
                 onClick={() => setIsChildModalOpen(false)}
-                className="clay-button cancel-button"
+                className="cancel-button"
               >
                 取消
               </Button>
               <Button 
                 type="primary" 
                 htmlType="submit"
-                className="clay-button submit-button"
+                className="submit-button"
               >
                 添加
               </Button>
@@ -460,14 +460,14 @@ const SettingsPage: React.FC = () => {
             <Space>
               <Button 
                 onClick={() => setIsRewardModalOpen(false)}
-                className="clay-button cancel-button"
+                className="cancel-button"
               >
                 取消
               </Button>
               <Button 
                 type="primary" 
                 htmlType="submit"
-                className="clay-button submit-button reward-button"
+                className="submit-button reward-button"
               >
                 添加
               </Button>
@@ -517,14 +517,14 @@ const SettingsPage: React.FC = () => {
             <Space>
               <Button 
                 onClick={() => setIsPunishmentModalOpen(false)}
-                className="clay-button cancel-button"
+                className="cancel-button"
               >
                 取消
               </Button>
               <Button 
                 type="primary" 
                 htmlType="submit"
-                className="clay-button submit-button punishment-button"
+                className="submit-button punishment-button"
               >
                 添加
               </Button>

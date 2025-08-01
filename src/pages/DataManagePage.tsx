@@ -89,41 +89,35 @@ const DataManagePage: React.FC = () => {
   const averagePoints = children.length > 0 ? Math.round(totalPoints / children.length) : 0;
 
   return (
-    <div className="responsive-container">
+    <div className="settings-container">
       {/* 头部区域 */}
-      <div className="responsive-header">
-        <Title level={1} className="responsive-title" style={{ color: 'white', marginBottom: '8px' }}>
-          数据管理
-        </Title>
-        <Text className="responsive-text" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-          导出、导入和管理你的应用数据
-        </Text>
+      <div className="hero-section">
+        <div className="hero-content">
+          <Title level={1} className="hero-title">
+            数据管理
+          </Title>
+          <Text className="hero-subtitle">
+            导出、导入和管理你的应用数据
+          </Text>
+        </div>
+        
+        {/* 导航按钮 */}
+        <div className="nav-buttons">
+          <Button
+            className="nav-button"
+            icon={<HomeOutlined />}
+            onClick={handleHomeClick}
+          >
+            返回首页
+          </Button>
+        </div>
       </div>
 
-      {/* 导航栏 */}
-      <div className="responsive-navbar">
-        <Button
-          type="text"
-          icon={<HomeOutlined />}
-          onClick={handleHomeClick}
-          className="responsive-button"
-          style={{
-            color: 'white',
-            background: 'rgba(255, 255, 255, 0.2)',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
-            backdropFilter: 'blur(10px)',
-          }}
-        >
-          返回首页
-        </Button>
-        <div></div>
-      </div>
-
-      {/* 主内容区域包装器 */}
-      <div className="main-content-wrapper">
+      {/* 主要内容区域 */}
+      <div className="main-content">
         {/* 数据统计 */}
-        <Card className="responsive-card" bodyStyle={{ padding: '24px' }} style={{ width: '100%', maxWidth: '800px', marginBottom: '24px' }}>
-          <Title level={3} className="responsive-subtitle" style={{ textAlign: 'center', marginBottom: '24px' }}>
+        <Card className="modern-card" style={{ marginBottom: '2rem' }}>
+          <Title level={3} style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
             数据统计
           </Title>
           <Row gutter={[16, 16]} justify="center">
@@ -131,51 +125,51 @@ const DataManagePage: React.FC = () => {
               <Statistic
                 title="孩子数量"
                 value={children.length}
-                prefix={<UserOutlined style={{ color: '#1890ff' }} />}
-                valueStyle={{ color: '#1890ff', textAlign: 'center' }}
+                prefix={<UserOutlined style={{ color: '#667eea' }} />}
+                valueStyle={{ color: '#667eea', textAlign: 'center' }}
               />
             </Col>
             <Col xs={12} sm={6}>
               <Statistic
                 title="奖励项目"
                 value={rewardItems.length}
-                prefix={<TrophyOutlined style={{ color: '#52c41a' }} />}
-                valueStyle={{ color: '#52c41a', textAlign: 'center' }}
+                prefix={<TrophyOutlined style={{ color: '#4facfe' }} />}
+                valueStyle={{ color: '#4facfe', textAlign: 'center' }}
               />
             </Col>
             <Col xs={12} sm={6}>
               <Statistic
                 title="惩罚项目"
                 value={punishmentItems.length}
-                prefix={<CloseCircleOutlined style={{ color: '#ff4d4f' }} />}
-                valueStyle={{ color: '#ff4d4f', textAlign: 'center' }}
+                prefix={<CloseCircleOutlined style={{ color: '#fa709a' }} />}
+                valueStyle={{ color: '#fa709a', textAlign: 'center' }}
               />
             </Col>
             <Col xs={12} sm={6}>
               <Statistic
                 title="历史记录"
                 value={records.length}
-                prefix={<HistoryOutlined style={{ color: '#722ed1' }} />}
-                valueStyle={{ color: '#722ed1', textAlign: 'center' }}
+                prefix={<HistoryOutlined style={{ color: '#764ba2' }} />}
+                valueStyle={{ color: '#764ba2', textAlign: 'center' }}
               />
             </Col>
           </Row>
           {children.length > 0 && (
-            <Row gutter={[16, 16]} justify="center" style={{ marginTop: '24px' }}>
+            <Row gutter={[16, 16]} justify="center" style={{ marginTop: '1.5rem' }}>
               <Col xs={12} sm={6}>
                 <Statistic
                   title="总积分"
                   value={totalPoints}
-                  prefix={<TrophyOutlined style={{ color: '#faad14' }} />}
-                  valueStyle={{ color: '#faad14', textAlign: 'center' }}
+                  prefix={<TrophyOutlined style={{ color: '#43e97b' }} />}
+                  valueStyle={{ color: '#43e97b', textAlign: 'center' }}
                 />
               </Col>
               <Col xs={12} sm={6}>
                 <Statistic
                   title="平均积分"
                   value={averagePoints}
-                  prefix={<TrophyOutlined style={{ color: '#faad14' }} />}
-                  valueStyle={{ color: '#faad14', textAlign: 'center' }}
+                  prefix={<TrophyOutlined style={{ color: '#43e97b' }} />}
+                  valueStyle={{ color: '#43e97b', textAlign: 'center' }}
                 />
               </Col>
             </Row>
@@ -183,161 +177,135 @@ const DataManagePage: React.FC = () => {
         </Card>
 
         {/* 数据操作 */}
-        <Card className="responsive-card" bodyStyle={{ padding: '24px' }} style={{ width: '100%', maxWidth: '800px' }}>
-          <Title level={3} className="responsive-subtitle" style={{ textAlign: 'center', marginBottom: '24px' }}>
+        <Card className="modern-card">
+          <Title level={3} style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
             数据操作
           </Title>
           
-          <div className="responsive-content">
-            <Space direction="vertical" size="large" style={{ width: '100%' }}>
-              {/* 导出数据 */}
-              <Card
-                className="responsive-card"
-                style={{
-                  background: 'rgba(24, 144, 255, 0.1)',
-                  border: '1px solid rgba(24, 144, 255, 0.2)',
-                }}
-                bodyStyle={{ padding: '20px' }}
-              >
-                <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-                  <div style={{ textAlign: 'center' }}>
-                    <DownloadOutlined style={{ fontSize: '32px', color: '#1890ff', marginBottom: '8px' }} />
-                    <Title level={4} className="responsive-subtitle" style={{ margin: '8px 0 4px' }}>
-                      导出数据
-                    </Title>
-                    <Text className="responsive-text" style={{ color: '#666' }}>
-                      将你的所有数据导出为JSON文件或复制到剪贴板
-                    </Text>
-                  </div>
-                  <div style={{ textAlign: 'center' }}>
-                    <Space wrap>
-                      <Button
-                        type="primary"
-                        icon={<FileTextOutlined />}
-                        onClick={handleExportData}
-                        className="responsive-button"
-                        style={{
-                          background: 'linear-gradient(45deg, #1890ff, #36cfc9)',
-                          border: 'none',
-                        }}
-                      >
-                        查看数据
-                      </Button>
-                      <Button
-                        type="primary"
-                        icon={<DownloadOutlined />}
-                        onClick={handleDownloadData}
-                        className="responsive-button"
-                        style={{
-                          background: 'linear-gradient(45deg, #1890ff, #36cfc9)',
-                          border: 'none',
-                        }}
-                      >
-                        下载文件
-                      </Button>
-                    </Space>
-                  </div>
-                </Space>
-              </Card>
-
-              {/* 导入数据 */}
-              <Card
-                className="responsive-card"
-                style={{
-                  background: 'rgba(82, 196, 26, 0.1)',
-                  border: '1px solid rgba(82, 196, 26, 0.2)',
-                }}
-                bodyStyle={{ padding: '20px' }}
-              >
-                <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-                  <div style={{ textAlign: 'center' }}>
-                    <UploadOutlined style={{ fontSize: '32px', color: '#52c41a', marginBottom: '8px' }} />
-                    <Title level={4} className="responsive-subtitle" style={{ margin: '8px 0 4px' }}>
-                      导入数据
-                    </Title>
-                    <Text className="responsive-text" style={{ color: '#666' }}>
-                      从JSON文件或剪贴板导入数据（将覆盖现有数据）
-                    </Text>
-                  </div>
-                  <div style={{ textAlign: 'center' }}>
+          <Space direction="vertical" size="large" style={{ width: '100%' }}>
+            {/* 导出数据 */}
+            <Card
+              className="modern-card"
+              style={{
+                background: 'rgba(79, 172, 254, 0.1)',
+                border: '1px solid rgba(79, 172, 254, 0.2)',
+              }}
+            >
+              <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+                <div style={{ textAlign: 'center' }}>
+                  <DownloadOutlined style={{ fontSize: '2rem', color: '#4facfe', marginBottom: '0.5rem' }} />
+                  <Title level={4} style={{ margin: '0.5rem 0 0.25rem', color: 'var(--text-primary)' }}>
+                    导出数据
+                  </Title>
+                  <Text style={{ color: 'var(--text-secondary)' }}>
+                    将你的所有数据导出为JSON文件或复制到剪贴板
+                  </Text>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <Space wrap>
                     <Button
-                      type="primary"
-                      icon={<UploadOutlined />}
-                      onClick={() => setIsImportModalOpen(true)}
-                      className="responsive-button"
-                      style={{
-                        background: 'linear-gradient(45deg, #52c41a, #73d13d)',
-                        border: 'none',
-                      }}
+                      className="modern-button success"
+                      icon={<FileTextOutlined />}
+                      onClick={handleExportData}
                     >
-                      导入数据
+                      查看数据
                     </Button>
-                  </div>
-                </Space>
-              </Card>
-
-              {/* 清空数据 */}
-              <Card
-                className="responsive-card"
-                style={{
-                  background: 'rgba(255, 77, 79, 0.1)',
-                  border: '1px solid rgba(255, 77, 79, 0.2)',
-                }}
-                bodyStyle={{ padding: '20px' }}
-              >
-                <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-                  <div style={{ textAlign: 'center' }}>
-                    <DeleteOutlined style={{ fontSize: '32px', color: '#ff4d4f', marginBottom: '8px' }} />
-                    <Title level={4} className="responsive-subtitle" style={{ margin: '8px 0 4px' }}>
-                      清空数据
-                    </Title>
-                    <Text className="responsive-text" style={{ color: '#666' }}>
-                      删除所有数据，包括孩子、项目和记录（不可恢复）
-                    </Text>
-                  </div>
-                  <div style={{ textAlign: 'center' }}>
                     <Button
-                      danger
-                      icon={<DeleteOutlined />}
-                      onClick={handleClearAllData}
-                      className="responsive-button"
-                      style={{
-                        background: 'linear-gradient(45deg, #ff4d4f, #ff7875)',
-                        border: 'none',
-                        color: 'white',
-                      }}
+                      className="modern-button success"
+                      icon={<DownloadOutlined />}
+                      onClick={handleDownloadData}
                     >
-                      清空所有数据
+                      下载文件
                     </Button>
-                  </div>
-                </Space>
-              </Card>
+                  </Space>
+                </div>
+              </Space>
+            </Card>
 
-              {/* 使用说明 */}
-              <Alert
-                message="使用说明"
-                description={
-                  <div>
-                    <Paragraph className="responsive-text" style={{ margin: '8px 0' }}>
-                      • <strong>导出数据</strong>：将当前所有数据保存为JSON格式，可用于备份或迁移
-                    </Paragraph>
-                    <Paragraph className="responsive-text" style={{ margin: '8px 0' }}>
-                      • <strong>导入数据</strong>：从之前导出的JSON文件恢复数据，会覆盖当前所有数据
-                    </Paragraph>
-                    <Paragraph className="responsive-text" style={{ margin: '8px 0' }}>
-                      • <strong>清空数据</strong>：删除所有数据，用于重新开始或解决问题
-                    </Paragraph>
-                    <Paragraph className="responsive-text" style={{ margin: '8px 0' }}>
-                      • 建议定期导出数据进行备份，以防数据丢失
-                    </Paragraph>
-                  </div>
-                }
-                type="info"
-                showIcon
-                                 style={{ marginTop: '16px' }}
-               />
-            </Space>
-          </div>
+            {/* 导入数据 */}
+            <Card
+              className="modern-card"
+              style={{
+                background: 'rgba(67, 233, 123, 0.1)',
+                border: '1px solid rgba(67, 233, 123, 0.2)',
+              }}
+            >
+              <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+                <div style={{ textAlign: 'center' }}>
+                  <UploadOutlined style={{ fontSize: '2rem', color: '#43e97b', marginBottom: '0.5rem' }} />
+                  <Title level={4} style={{ margin: '0.5rem 0 0.25rem', color: 'var(--text-primary)' }}>
+                    导入数据
+                  </Title>
+                  <Text style={{ color: 'var(--text-secondary)' }}>
+                    从JSON文件或剪贴板导入数据（将覆盖现有数据）
+                  </Text>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <Button
+                    className="modern-button warning"
+                    icon={<UploadOutlined />}
+                    onClick={() => setIsImportModalOpen(true)}
+                  >
+                    导入数据
+                  </Button>
+                </div>
+              </Space>
+            </Card>
+
+            {/* 清空数据 */}
+            <Card
+              className="modern-card"
+              style={{
+                background: 'rgba(250, 112, 154, 0.1)',
+                border: '1px solid rgba(250, 112, 154, 0.2)',
+              }}
+            >
+              <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+                <div style={{ textAlign: 'center' }}>
+                  <DeleteOutlined style={{ fontSize: '2rem', color: '#fa709a', marginBottom: '0.5rem' }} />
+                  <Title level={4} style={{ margin: '0.5rem 0 0.25rem', color: 'var(--text-primary)' }}>
+                    清空数据
+                  </Title>
+                  <Text style={{ color: 'var(--text-secondary)' }}>
+                    删除所有数据，包括孩子、项目和记录（不可恢复）
+                  </Text>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <Button
+                    className="modern-button danger"
+                    icon={<DeleteOutlined />}
+                    onClick={handleClearAllData}
+                  >
+                    清空所有数据
+                  </Button>
+                </div>
+              </Space>
+            </Card>
+
+            {/* 使用说明 */}
+            <Alert
+              message="使用说明"
+              description={
+                <div>
+                  <Paragraph style={{ margin: '0.5rem 0', color: 'var(--text-secondary)' }}>
+                    • <strong>导出数据</strong>：将当前所有数据保存为JSON格式，可用于备份或迁移
+                  </Paragraph>
+                  <Paragraph style={{ margin: '0.5rem 0', color: 'var(--text-secondary)' }}>
+                    • <strong>导入数据</strong>：从之前导出的JSON文件恢复数据，会覆盖当前所有数据
+                  </Paragraph>
+                  <Paragraph style={{ margin: '0.5rem 0', color: 'var(--text-secondary)' }}>
+                    • <strong>清空数据</strong>：删除所有数据，用于重新开始或解决问题
+                  </Paragraph>
+                  <Paragraph style={{ margin: '0.5rem 0', color: 'var(--text-secondary)' }}>
+                    • 建议定期导出数据进行备份，以防数据丢失
+                  </Paragraph>
+                </div>
+              }
+              type="info"
+              showIcon
+              style={{ marginTop: '1rem' }}
+            />
+          </Space>
         </Card>
       </div>
 
@@ -348,34 +316,30 @@ const DataManagePage: React.FC = () => {
         onCancel={() => setIsExportModalOpen(false)}
         footer={
           <Space>
-            <Button onClick={() => setIsExportModalOpen(false)} className="responsive-button">
+            <Button onClick={() => setIsExportModalOpen(false)}>
               关闭
             </Button>
             <Button
-              type="primary"
+              className="modern-button success"
               icon={<CopyOutlined />}
               onClick={handleCopyData}
-              className="responsive-button"
-              style={{
-                background: 'linear-gradient(45deg, #1890ff, #36cfc9)',
-                border: 'none',
-              }}
             >
               复制到剪贴板
             </Button>
           </Space>
         }
         width={600}
-        className="responsive-modal"
+        className="clay-modal"
       >
         <div style={{ maxHeight: '400px', overflow: 'auto' }}>
           <pre style={{ 
-            background: '#f5f5f5', 
-            padding: '16px', 
-            borderRadius: '8px', 
-            fontSize: '12px',
+            background: 'var(--bg-secondary)', 
+            padding: '1rem', 
+            borderRadius: 'var(--radius-lg)', 
+            fontSize: '0.75rem',
             whiteSpace: 'pre-wrap',
-            wordBreak: 'break-all'
+            wordBreak: 'break-all',
+            color: 'var(--text-primary)'
           }}>
             {exportedData}
           </pre>
@@ -389,7 +353,7 @@ const DataManagePage: React.FC = () => {
         onCancel={() => setIsImportModalOpen(false)}
         footer={null}
         width={600}
-        className="responsive-modal"
+        className="clay-modal"
       >
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
           <Alert
@@ -400,21 +364,20 @@ const DataManagePage: React.FC = () => {
           />
           
           <div>
-            <Title level={4} className="responsive-subtitle">从文件导入</Title>
+            <Title level={4} style={{ color: 'var(--text-primary)' }}>从文件导入</Title>
             <Upload
               accept=".json"
               beforeUpload={handleImportFromFile}
               showUploadList={false}
-              className="responsive-button"
             >
-              <Button icon={<UploadOutlined />} className="responsive-button">
+              <Button className="modern-button" icon={<UploadOutlined />}>
                 选择JSON文件
               </Button>
             </Upload>
           </div>
           
           <div>
-            <Title level={4} className="responsive-subtitle">从剪贴板导入</Title>
+            <Title level={4} style={{ color: 'var(--text-primary)' }}>从剪贴板导入</Title>
             <textarea
               value={importText}
               onChange={(e) => setImportText(e.target.value)}
@@ -422,28 +385,25 @@ const DataManagePage: React.FC = () => {
               style={{
                 width: '100%',
                 height: '200px',
-                padding: '12px',
-                border: '1px solid #d9d9d9',
-                borderRadius: '6px',
-                fontSize: '12px',
+                padding: '0.75rem',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                borderRadius: 'var(--radius-lg)',
+                fontSize: '0.75rem',
                 fontFamily: 'monospace',
-                resize: 'vertical'
+                resize: 'vertical',
+                background: 'var(--bg-card)',
+                color: 'var(--text-primary)'
               }}
             />
-            <div style={{ marginTop: '16px', textAlign: 'right' }}>
+            <div style={{ marginTop: '1rem', textAlign: 'right' }}>
               <Space>
-                <Button onClick={() => setIsImportModalOpen(false)} className="responsive-button">
+                <Button onClick={() => setIsImportModalOpen(false)}>
                   取消
                 </Button>
                 <Button
-                  type="primary"
+                  className="modern-button warning"
                   onClick={handleImportFromText}
                   disabled={!importText.trim()}
-                  className="responsive-button"
-                  style={{
-                    background: 'linear-gradient(45deg, #52c41a, #73d13d)',
-                    border: 'none',
-                  }}
                 >
                   导入数据
                 </Button>

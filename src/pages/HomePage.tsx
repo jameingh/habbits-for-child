@@ -34,10 +34,10 @@ const HomePage: React.FC = () => {
       <div className="hero-section">
         <div className="hero-content">
           <Title level={1} className="hero-title">
-            儿童习惯养成
+            KidHabits
           </Title>
           <Text className="hero-subtitle">
-            通过积分奖励，培养孩子的好习惯
+            培养好习惯，收获小成就
           </Text>
         </div>
         
@@ -60,7 +60,7 @@ const HomePage: React.FC = () => {
         {/* 统计面板 */}
         {totalChildren > 0 && (
           <div className="stats-section">
-            <Row gutter={[12, 12]} justify="center">
+            <Row gutter={[8, 8]} justify="center">
               <Col xs={8} sm={8} md={8} lg={8} xl={8}>
                 <Card className="stats-card">
                   <div className="stats-content">
@@ -137,9 +137,9 @@ const HomePage: React.FC = () => {
                 <Title level={2} className="children-title">
                   我的孩子们
                 </Title>
-                <Row gutter={[24, 24]} justify="center">
+                <Row gutter={[16, 16]} justify="center">
                   {children.map(child => (
-                    <Col key={child.id} xs={24} sm={12} md={8} lg={6} xl={6}>
+                    <Col key={child.id} xs={12} sm={12} md={8} lg={6} xl={6}>
                       <Card
                         hoverable
                         className="child-card"

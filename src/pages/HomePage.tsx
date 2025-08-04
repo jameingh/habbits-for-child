@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card, Typography, Empty, Row, Col, Tooltip } from 'antd';
+import { Button, Card, Typography, Empty, Row, Col, Tooltip, Modal, Form, Input, message } from 'antd';
 import { PlusOutlined, SettingOutlined, UserOutlined, TrophyOutlined } from '@ant-design/icons';
 import { useAppContext } from '../context/AppContext';
 import ChildAvatar from '../components/ChildAvatar';
@@ -9,10 +9,21 @@ const { Title, Text } = Typography;
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
-  const { children } = useAppContext();
+  const { children, addChild } = useAppContext();
+  const [isAddChildModalOpen, setIsAddChildModalOpen] = useState(false);
+  const [childForm] = Form.useForm();
 
   const handleAddChild = () => {
-    navigate('/settings');
+    setIsAddChildModalOpen(true);
+  };
+
+  const handleAddChildSubmit = (values: any) => {
+    addChild({
+      name: values.name,
+    });
+    childForm.resetFields();
+    setIsAddChildModalOpen(false);
+    message.success('添加成功');
   };
 
   const handleSettings = () => {
@@ -134,9 +145,20 @@ const HomePage: React.FC = () => {
               </div>
             ) : (
               <div className="children-content">
-                <Title level={2} className="children-title">
-                  我的孩子们
-                </Title>
+                <div className="children-header">
+                  <Title level={2} className="children-title">
+                    我的孩子们
+                  </Title>
+                  {/* 添加按钮 */}
+                  <Button
+                    type="primary"
+                    shape="circle"
+                    icon={<PlusOutlined />}
+                    size="large"
+                    onClick={handleAddChild}
+                    className="floating-add-button"
+                  />
+                </div>
                 <Row gutter={[16, 16]} justify="center">
                   {children.map(child => (
                     <Col key={child.id} xs={12} sm={12} md={8} lg={6} xl={6}>
@@ -161,19 +183,51 @@ const HomePage: React.FC = () => {
             )}
           </Card>
         </div>
-
-        {/* 浮动添加按钮 */}
-        {children.length > 0 && (
-          <Button
-            type="primary"
-            shape="circle"
-            icon={<PlusOutlined />}
-            size="large"
-            onClick={handleAddChild}
-            className="floating-add-button"
-          />
-        )}
       </div>
+
+      {/* 添加孩子弹窗 */}
+      <Modal
+        title="添加孩子"
+        open={isAddChildModalOpen}
+        onCancel={() => setIsAddChildModalOpen(false)}
+        footer={null}
+        className="clay-modal"
+      >
+        <Form
+          form={childForm}
+          layout="vertical"
+          onFinish={handleAddChildSubmit}
+          className="clay-form"
+        >
+          <Form.Item
+            label="孩子姓名"
+            name="name"
+            rules={[{ required: true, message: '请输入孩子姓名' }]}
+          >
+            <Input 
+              placeholder="请输入孩子姓名" 
+              className="clay-input"
+            />
+          </Form.Item>
+          <Form.Item className="form-actions">
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
+              <Button 
+                onClick={() => setIsAddChildModalOpen(false)}
+                className="cancel-button"
+              >
+                取消
+              </Button>
+              <Button 
+                type="primary" 
+                htmlType="submit"
+                className="submit-button"
+              >
+                添加
+              </Button>
+            </div>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };

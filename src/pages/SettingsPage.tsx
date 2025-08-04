@@ -271,22 +271,22 @@ const SettingsPage: React.FC = () => {
       case 'children':
         return {
           onClick: () => setIsChildModalOpen(true),
-          className: 'floating-add-button child-button'
+          className: 'nav-add-button child-button'
         };
       case 'rewards':
         return {
           onClick: () => setIsRewardModalOpen(true),
-          className: 'floating-add-button reward-button'
+          className: 'nav-add-button reward-button'
         };
       case 'punishments':
         return {
           onClick: () => setIsPunishmentModalOpen(true),
-          className: 'floating-add-button punishment-button'
+          className: 'nav-add-button punishment-button'
         };
       default:
         return {
           onClick: () => setIsChildModalOpen(true),
-          className: 'floating-add-button'
+          className: 'nav-add-button'
         };
     }
   };
@@ -347,14 +347,6 @@ const SettingsPage: React.FC = () => {
             ]}
           />
         </Card>
-
-        {/* 浮动添加按钮 */}
-        <Button
-          {...getFloatingButtonProps()}
-          shape="circle"
-          icon={<PlusOutlined />}
-          size="large"
-        />
       </div>
 
       {/* 导航按钮 */}
@@ -366,6 +358,16 @@ const SettingsPage: React.FC = () => {
         >
           返回首页
         </Button>
+        
+        {/* 添加按钮 */}
+        <Button
+          {...getFloatingButtonProps()}
+          shape="circle"
+          icon={<PlusOutlined />}
+          size="large"
+          className="nav-add-button"
+        />
+        
         <Button
           className="nav-button data-button"
           icon={<DatabaseOutlined />}

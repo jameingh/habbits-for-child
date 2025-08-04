@@ -1,4 +1,4 @@
-/* 现代化应用样式 */
+/* 苹果风格应用样式 */
 
 /* 主页样式 */
 .home-container {
@@ -27,21 +27,18 @@
 .hero-title {
   font-size: 3rem !important;
   font-weight: 700 !important;
-  background: linear-gradient(135deg, #4c51bf 0%, #553c9a 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-primary) !important;
   margin-bottom: 1rem !important;
   line-height: 1.2 !important;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: -0.02em !important;
 }
 
 .hero-subtitle {
   font-size: 1.125rem !important;
-  color: #4a5568 !important;
-  font-weight: 500 !important;
+  color: var(--text-secondary) !important;
+  font-weight: 400 !important;
   margin: 0 !important;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  line-height: 1.4 !important;
 }
 
 .settings-button-container {
@@ -53,21 +50,22 @@
 .settings-button {
   width: 3rem !important;
   height: 3rem !important;
-  border-radius: 50% !important;
+  border-radius: var(--radius-full) !important;
   border: none !important;
-  background: var(--primary-gradient) !important;
+  background: var(--primary-color) !important;
   color: white !important;
   font-size: 1.25rem !important;
   box-shadow: var(--shadow-md) !important;
-  transition: all 0.3s ease !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
 
 .settings-button:hover {
-  transform: translateY(-2px) !important;
+  transform: scale(1.05) !important;
   box-shadow: var(--shadow-lg) !important;
+  background: var(--primary-dark) !important;
 }
 
 /* 主要内容区域 */
@@ -76,6 +74,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  min-height: 500px !important;
 }
 
 /* 统计卡片区域 */
@@ -87,16 +86,15 @@
 .stats-card {
   background: var(--bg-card) !important;
   border-radius: var(--radius-xl) !important;
-  box-shadow: var(--shadow-lg) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  transition: all 0.3s ease !important;
+  box-shadow: var(--shadow-md) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   overflow: hidden !important;
 }
 
 .stats-card:hover {
-  transform: translateY(-4px) !important;
-  box-shadow: var(--shadow-xl) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-lg) !important;
 }
 
 .stats-card .ant-card-body {
@@ -113,22 +111,22 @@
 .stats-icon {
   width: 3rem;
   height: 3rem;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
   color: white;
-  background: var(--primary-gradient);
-  box-shadow: var(--shadow-md);
+  background: var(--primary-color);
+  box-shadow: var(--shadow-sm);
 }
 
 .stats-icon.total-points {
-  background: var(--success-gradient);
+  background: var(--success-color);
 }
 
 .stats-icon.average-points {
-  background: var(--warning-gradient);
+  background: var(--warning-color);
 }
 
 .stats-info {
@@ -165,9 +163,8 @@
 .children-card {
   background: var(--bg-card) !important;
   border-radius: var(--radius-2xl) !important;
-  box-shadow: var(--shadow-xl) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: var(--shadow-lg) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
   overflow: hidden !important;
 }
 
@@ -175,18 +172,32 @@
   padding: 2rem !important;
 }
 
+.children-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 1.5rem !important;
+  position: relative !important;
+}
+
 .children-title {
   font-size: 1.5rem !important;
   font-weight: 600 !important;
   color: var(--text-primary) !important;
-  margin-bottom: 1.5rem !important;
-  text-align: center !important;
+  margin: 0 !important;
+  flex: 1 !important;
+  text-align: left !important;
 }
 
 /* 空状态 */
 .empty-state {
   text-align: center;
   padding: 3rem 1rem;
+  height: 300px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 
 .empty-icon {
@@ -210,41 +221,46 @@
   display: block !important;
 }
 
+.empty-action {
+  margin-top: 2rem;
+  flex-shrink: 0 !important;
+}
+
 .add-child-button {
-  background: var(--primary-gradient) !important;
+  background: var(--primary-color) !important;
   color: white !important;
   border: none !important;
-  border-radius: var(--radius-xl) !important;
-  padding: 0.75rem 2rem !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 0.875rem 2rem !important;
   font-size: 1rem !important;
   font-weight: 600 !important;
   box-shadow: var(--shadow-md) !important;
-  transition: all 0.3s ease !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   display: inline-flex !important;
   align-items: center !important;
   gap: 0.5rem !important;
 }
 
 .add-child-button:hover {
-  transform: translateY(-2px) !important;
+  transform: scale(1.02) !important;
   box-shadow: var(--shadow-lg) !important;
+  background: var(--primary-dark) !important;
 }
 
 /* 孩子卡片 */
 .child-card {
   background: var(--bg-card) !important;
   border-radius: var(--radius-xl) !important;
-  box-shadow: var(--shadow-md) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  transition: all 0.3s ease !important;
+  box-shadow: var(--shadow-sm) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   cursor: pointer !important;
   overflow: hidden !important;
 }
 
 .child-card:hover {
-  transform: translateY(-4px) !important;
-  box-shadow: var(--shadow-xl) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-md) !important;
 }
 
 .child-card-content {
@@ -256,24 +272,25 @@
 
 /* 浮动添加按钮 */
 .floating-add-button {
-  position: fixed !important;
-  bottom: 2rem !important;
-  right: 2rem !important;
-  width: 3.5rem !important;
-  height: 3.5rem !important;
-  border-radius: 50% !important;
-  background: var(--primary-gradient) !important;
+  position: relative !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  border-radius: var(--radius-full) !important;
+  background: var(--primary-color) !important;
   color: white !important;
   border: none !important;
-  font-size: 1.5rem !important;
-  box-shadow: var(--shadow-xl) !important;
-  transition: all 0.3s ease !important;
-  z-index: 1000 !important;
+  font-size: 1.25rem !important;
+  box-shadow: var(--shadow-md) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .floating-add-button:hover {
-  transform: translateY(-4px) scale(1.1) !important;
-  box-shadow: var(--shadow-xl) !important;
+  transform: scale(1.05) !important;
+  box-shadow: var(--shadow-lg) !important;
+  background: var(--primary-dark) !important;
 }
 
 /* 悬浮返回按钮 */
@@ -283,13 +300,12 @@
   left: 1rem !important;
   background: var(--bg-card) !important;
   color: var(--text-primary) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-radius: var(--radius-xl) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: var(--radius-lg) !important;
   padding: 0.75rem 1.5rem !important;
   font-weight: 600 !important;
-  box-shadow: var(--shadow-xl) !important;
-  backdrop-filter: blur(10px) !important;
-  transition: all 0.3s ease !important;
+  box-shadow: var(--shadow-md) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   z-index: 100 !important;
   display: inline-flex !important;
   align-items: center !important;
@@ -297,9 +313,9 @@
 }
 
 .floating-home-button:hover {
-  transform: translateY(-4px) !important;
-  box-shadow: var(--shadow-xl) !important;
-  background: var(--primary-gradient) !important;
+  transform: scale(1.02) !important;
+  box-shadow: var(--shadow-lg) !important;
+  background: var(--primary-color) !important;
   color: white !important;
   border-color: transparent !important;
 }
@@ -316,14 +332,21 @@
   margin: 0 auto;
 }
 
+/* 设置内容区域固定高度 */
+.settings-content {
+  height: 350px !important;
+  width: 100% !important;
+  overflow-y: auto !important;
+}
+
 .settings-card {
   background: var(--bg-card) !important;
   border-radius: var(--radius-2xl) !important;
-  box-shadow: var(--shadow-xl) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: var(--shadow-lg) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
   width: 100% !important;
   overflow: hidden !important;
+  height: 450px !important;
 }
 
 .settings-card .ant-card-body {
@@ -336,92 +359,124 @@
   margin-bottom: 1rem;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .nav-button {
   background: var(--bg-card) !important;
   color: var(--text-primary) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-radius: var(--radius-xl) !important;
-  padding: 0.75rem 1.5rem !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 0.875rem 1.5rem !important;
   font-weight: 600 !important;
-  box-shadow: var(--shadow-md) !important;
-  transition: all 0.3s ease !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   display: inline-flex !important;
   align-items: center !important;
   gap: 0.5rem !important;
 }
 
 .nav-button:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: var(--shadow-lg) !important;
-  background: var(--primary-gradient) !important;
+  transform: scale(1.02) !important;
+  box-shadow: var(--shadow-md) !important;
+  background: var(--primary-color) !important;
   color: white !important;
+  border-color: transparent !important;
 }
 
 .nav-button.data-button {
-  background: var(--success-gradient) !important;
+  background: var(--success-color) !important;
   color: white !important;
+  border-color: transparent !important;
+}
+
+/* 导航栏添加按钮 */
+.nav-add-button {
+  width: 3.5rem !important;
+  height: 3.5rem !important;
+  border-radius: var(--radius-full) !important;
+  background: var(--primary-color) !important;
+  color: white !important;
+  border: none !important;
+  font-size: 1.5rem !important;
+  box-shadow: var(--shadow-md) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 1000 !important;
+}
+
+.nav-add-button:hover {
+  transform: scale(1.05) !important;
+  box-shadow: var(--shadow-lg) !important;
+  background: var(--primary-dark) !important;
+}
+
+.nav-add-button.child-button {
+  background: var(--primary-color) !important;
+}
+
+.nav-add-button.reward-button {
+  background: var(--success-color) !important;
+}
+
+.nav-add-button.punishment-button {
+  background: var(--danger-color) !important;
 }
 
 /* 标签页样式 */
 .settings-tabs .ant-tabs-nav {
   margin-bottom: 2rem !important;
+  flex-shrink: 0 !important;
+}
+
+.settings-tabs .ant-tabs-content-holder {
+  flex: 1 !important;
+}
+
+.settings-tabs .ant-tabs-tabpane {
+  height: 100% !important;
 }
 
 .settings-tabs .ant-tabs-tab {
   background: var(--bg-card) !important;
-  border: 2px solid rgba(186, 164, 217, 0.3) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
   border-radius: var(--radius-lg) !important;
   margin-right: 0.5rem !important;
   margin-bottom: 0.5rem !important;
-  padding: 0.75rem 1.5rem !important;
-  transition: all 0.3s ease !important;
+  padding: 0.875rem 1.5rem !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   color: var(--text-secondary) !important;
   font-weight: 500 !important;
   position: relative !important;
   overflow: hidden !important;
 }
 
-.settings-tabs .ant-tabs-tab::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(186, 164, 217, 0.15) 0%, rgba(159, 122, 234, 0.15) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
-}
-
 .settings-tabs .ant-tabs-tab:hover {
-  border-color: rgba(186, 164, 217, 0.6) !important;
-  color: #8b5a9f !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 8px 25px rgba(186, 164, 217, 0.25) !important;
-}
-
-.settings-tabs .ant-tabs-tab:hover::before {
-  opacity: 1;
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
+  transform: scale(1.02) !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
 .settings-tabs .ant-tabs-tab-active {
-  background: linear-gradient(135deg, rgba(186, 164, 217, 0.9) 0%, rgba(159, 122, 234, 0.9) 100%) !important;
-  color: white !important;
+  background: var(--primary-color) !important;
+  color: var(--text-inverse) !important;
   border-color: transparent !important;
   font-weight: 600 !important;
-  box-shadow: 0 8px 25px rgba(186, 164, 217, 0.3) !important;
-  transform: translateY(-1px) !important;
-}
-
-.settings-tabs .ant-tabs-tab-active::before {
-  opacity: 1;
+  box-shadow: var(--shadow-md) !important;
+  transform: scale(1.02) !important;
 }
 
 .settings-tabs .ant-tabs-tab-active .tab-label {
+  color: var(--text-inverse) !important;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15) !important;
+}
+
+.settings-tabs .ant-tabs-tab-active .tab-label .anticon {
+  color: var(--text-inverse) !important;
 }
 
 /* 设置标签样式增强 */
@@ -445,29 +500,30 @@
 /* 项目网格 */
 .items-grid {
   width: 100%;
+  height: 350px !important;
+  overflow-y: auto !important;
 }
 
 .item-card {
   background: var(--bg-card) !important;
   border-radius: var(--radius-xl) !important;
-  box-shadow: var(--shadow-md) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  transition: all 0.3s ease !important;
+  box-shadow: var(--shadow-sm) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   overflow: hidden !important;
 }
 
 .item-card:hover {
-  transform: translateY(-4px) !important;
-  box-shadow: var(--shadow-xl) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-md) !important;
 }
 
 .item-card.reward-card {
-  border-left: 4px solid #4facfe !important;
+  border-left: 4px solid var(--success-color) !important;
 }
 
 .item-card.punishment-card {
-  border-left: 4px solid #fa709a !important;
+  border-left: 4px solid var(--danger-color) !important;
 }
 
 .item-card .ant-card-body {
@@ -484,25 +540,25 @@
 .item-icon {
   width: 3rem;
   height: 3rem;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
   color: white;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .item-icon.child-icon {
-  background: var(--primary-gradient);
+  background: var(--primary-color);
 }
 
 .item-icon.reward-icon {
-  background: var(--success-gradient);
+  background: var(--success-color);
 }
 
 .item-icon.punishment-icon {
-  background: var(--danger-gradient);
+  background: var(--danger-color);
 }
 
 .item-info {
@@ -529,13 +585,13 @@
 }
 
 .item-points.positive {
-  background: rgba(79, 172, 254, 0.1) !important;
-  color: #4facfe !important;
+  background: rgba(52, 199, 89, 0.1) !important;
+  color: var(--success-color) !important;
 }
 
 .item-points.negative {
-  background: rgba(250, 112, 154, 0.1) !important;
-  color: #fa709a !important;
+  background: rgba(255, 59, 48, 0.1) !important;
+  color: var(--danger-color) !important;
 }
 
 .delete-button {
@@ -562,30 +618,31 @@
 
 /* 添加按钮 */
 .add-button {
-  background: var(--primary-gradient) !important;
+  background: var(--primary-color) !important;
   color: white !important;
   border: none !important;
-  border-radius: var(--radius-xl) !important;
-  padding: 0.75rem 1.5rem !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 0.875rem 1.5rem !important;
   font-weight: 600 !important;
   box-shadow: var(--shadow-md) !important;
-  transition: all 0.3s ease !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   display: inline-flex !important;
   align-items: center !important;
   gap: 0.5rem !important;
 }
 
 .add-button:hover {
-  transform: translateY(-2px) !important;
+  transform: scale(1.02) !important;
   box-shadow: var(--shadow-lg) !important;
+  background: var(--primary-dark) !important;
 }
 
 .add-button.reward-button {
-  background: var(--success-gradient) !important;
+  background: var(--success-color) !important;
 }
 
 .add-button.punishment-button {
-  background: var(--danger-gradient) !important;
+  background: var(--danger-color) !important;
 }
 
 /* 模态框样式 */
@@ -593,13 +650,12 @@
   background: var(--bg-card) !important;
   border-radius: var(--radius-2xl) !important;
   box-shadow: var(--shadow-xl) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
 }
 
 .clay-modal .ant-modal-header {
   background: transparent !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
   border-radius: var(--radius-2xl) var(--radius-2xl) 0 0 !important;
 }
 
@@ -618,19 +674,19 @@
 }
 
 .clay-input {
-  background: var(--bg-card) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: var(--bg-secondary) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
   border-radius: var(--radius-lg) !important;
-  padding: 0.75rem 1rem !important;
+  padding: 0.875rem 1rem !important;
   font-size: 1rem !important;
   color: var(--text-primary) !important;
-  transition: all 0.3s ease !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   box-shadow: var(--shadow-sm) !important;
 }
 
 .clay-input:focus {
-  border-color: rgba(102, 126, 234, 0.5) !important;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1) !important;
   outline: none !important;
 }
 
@@ -642,37 +698,38 @@
 }
 
 .cancel-button {
-  background: var(--bg-card) !important;
+  background: var(--bg-secondary) !important;
   color: var(--text-primary) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
   border-radius: var(--radius-lg) !important;
-  padding: 0.75rem 1.5rem !important;
+  padding: 0.875rem 1.5rem !important;
   font-weight: 600 !important;
-  transition: all 0.3s ease !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .submit-button {
-  background: var(--primary-gradient) !important;
+  background: var(--primary-color) !important;
   color: white !important;
   border: none !important;
   border-radius: var(--radius-lg) !important;
-  padding: 0.75rem 1.5rem !important;
+  padding: 0.875rem 1.5rem !important;
   font-weight: 600 !important;
   box-shadow: var(--shadow-md) !important;
-  transition: all 0.3s ease !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .submit-button:hover {
-  transform: translateY(-2px) !important;
+  transform: scale(1.02) !important;
   box-shadow: var(--shadow-lg) !important;
+  background: var(--primary-dark) !important;
 }
 
 .submit-button.reward-button {
-  background: var(--success-gradient) !important;
+  background: var(--success-color) !important;
 }
 
 .submit-button.punishment-button {
-  background: var(--danger-gradient) !important;
+  background: var(--danger-color) !important;
 }
 
 /* 孩子记录页面 */
@@ -691,9 +748,8 @@
 .child-header {
   background: var(--bg-card);
   border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-xl);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   padding: 2rem;
   display: flex;
   align-items: center;
@@ -705,14 +761,14 @@
 .child-header-avatar {
   width: 5rem;
   height: 5rem;
-  border-radius: 50%;
-  background: var(--primary-gradient);
+  border-radius: var(--radius-full);
+  background: var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2rem;
   color: white;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .child-header-info {
@@ -729,21 +785,20 @@
 }
 
 .points-display.positive {
-  background: rgba(79, 172, 254, 0.1);
-  color: #4facfe;
+  background: rgba(52, 199, 89, 0.1);
+  color: var(--success-color);
 }
 
 .points-display.negative {
-  background: rgba(250, 112, 154, 0.1);
-  color: #fa709a;
+  background: rgba(255, 59, 48, 0.1);
+  color: var(--danger-color);
 }
 
 .record-card {
   background: var(--bg-card) !important;
   border-radius: var(--radius-2xl) !important;
-  box-shadow: var(--shadow-xl) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: var(--shadow-lg) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
   width: 100% !important;
   overflow: hidden !important;
 }
@@ -759,56 +814,40 @@
 
 .record-tabs .ant-tabs-tab {
   background: var(--bg-card) !important;
-  border: 2px solid rgba(186, 164, 217, 0.3) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
   border-radius: var(--radius-lg) !important;
   margin-right: 0.5rem !important;
-  padding: 0.75rem 1.5rem !important;
-  transition: all 0.3s ease !important;
+  padding: 0.875rem 1.5rem !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   color: var(--text-secondary) !important;
   font-weight: 500 !important;
   position: relative !important;
   overflow: hidden !important;
 }
 
-.record-tabs .ant-tabs-tab::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(186, 164, 217, 0.15) 0%, rgba(159, 122, 234, 0.15) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
-}
-
 .record-tabs .ant-tabs-tab:hover {
-  border-color: rgba(186, 164, 217, 0.6) !important;
-  color: #8b5a9f !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 8px 25px rgba(186, 164, 217, 0.25) !important;
-}
-
-.record-tabs .ant-tabs-tab:hover::before {
-  opacity: 1;
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
+  transform: scale(1.02) !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
 .record-tabs .ant-tabs-tab-active {
-  background: linear-gradient(135deg, rgba(186, 164, 217, 0.9) 0%, rgba(159, 122, 234, 0.9) 100%) !important;
-  color: white !important;
+  background: var(--primary-color) !important;
+  color: var(--text-inverse) !important;
   border-color: transparent !important;
   font-weight: 600 !important;
-  box-shadow: 0 8px 25px rgba(186, 164, 217, 0.3) !important;
-  transform: translateY(-1px) !important;
-}
-
-.record-tabs .ant-tabs-tab-active::before {
-  opacity: 1;
+  box-shadow: var(--shadow-md) !important;
+  transform: scale(1.02) !important;
 }
 
 .record-tabs .ant-tabs-tab-active .tab-label {
+  color: var(--text-inverse) !important;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15) !important;
+}
+
+.record-tabs .ant-tabs-tab-active .tab-label .anticon {
+  color: var(--text-inverse) !important;
 }
 
 /* 标签标签样式增强 */
@@ -833,25 +872,24 @@
 .record-item-card {
   background: var(--bg-card) !important;
   border-radius: var(--radius-xl) !important;
-  box-shadow: var(--shadow-md) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  transition: all 0.3s ease !important;
+  box-shadow: var(--shadow-sm) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   cursor: pointer !important;
   overflow: hidden !important;
 }
 
 .record-item-card:hover {
-  transform: translateY(-4px) !important;
-  box-shadow: var(--shadow-xl) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-md) !important;
 }
 
 .record-item-card.reward-item {
-  border-left: 4px solid #4facfe !important;
+  border-left: 4px solid var(--success-color) !important;
 }
 
 .record-item-card.punishment-item {
-  border-left: 4px solid #fa709a !important;
+  border-left: 4px solid var(--danger-color) !important;
 }
 
 .record-item-card .ant-card-body {
@@ -867,21 +905,21 @@
 .record-item-icon {
   width: 3rem;
   height: 3rem;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
   color: white;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .record-item-icon.reward-icon {
-  background: var(--success-gradient);
+  background: var(--success-color);
 }
 
 .record-item-icon.punishment-icon {
-  background: var(--danger-gradient);
+  background: var(--danger-color);
 }
 
 .record-item-info {
@@ -908,30 +946,29 @@
 }
 
 .record-item-points.positive {
-  background: rgba(79, 172, 254, 0.1) !important;
-  color: #4facfe !important;
+  background: rgba(52, 199, 89, 0.1) !important;
+  color: var(--success-color) !important;
 }
 
 .record-item-points.negative {
-  background: rgba(250, 112, 154, 0.1) !important;
-  color: #fa709a !important;
+  background: rgba(255, 59, 48, 0.1) !important;
+  color: var(--danger-color) !important;
 }
 
 /* 记录历史卡片 */
 .record-history-card {
   background: var(--bg-card) !important;
   border-radius: var(--radius-xl) !important;
-  box-shadow: var(--shadow-md) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  transition: all 0.3s ease !important;
+  box-shadow: var(--shadow-sm) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   overflow: hidden !important;
   position: relative !important;
 }
 
 .record-history-card:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: var(--shadow-lg) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: var(--shadow-md) !important;
 }
 
 .record-history-card .ant-card-body {
@@ -947,7 +984,7 @@
 .record-type-icon {
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -957,11 +994,11 @@
 }
 
 .record-type-icon.reward-icon {
-  background: var(--success-gradient);
+  background: var(--success-color);
 }
 
 .record-type-icon.punishment-icon {
-  background: var(--danger-gradient);
+  background: var(--danger-color);
 }
 
 .record-history-info {
@@ -994,13 +1031,13 @@
 }
 
 .record-history-points.positive {
-  background: rgba(79, 172, 254, 0.1) !important;
-  color: #4facfe !important;
+  background: rgba(52, 199, 89, 0.1) !important;
+  color: var(--success-color) !important;
 }
 
 .record-history-points.negative {
-  background: rgba(250, 112, 154, 0.1) !important;
-  color: #fa709a !important;
+  background: rgba(255, 59, 48, 0.1) !important;
+  color: var(--danger-color) !important;
 }
 
 .record-history-date {
@@ -1015,13 +1052,13 @@
   right: 0.75rem !important;
   width: 1.5rem !important;
   height: 1.5rem !important;
-  border-radius: 50% !important;
-  background: var(--danger-gradient) !important;
+  border-radius: var(--radius-full) !important;
+  background: var(--danger-color) !important;
   color: white !important;
   border: none !important;
   font-size: 0.75rem !important;
   opacity: 0 !important;
-  transition: all 0.3s ease !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -1107,12 +1144,20 @@
     font-size: 1.5rem;
   }
 
+  .children-header {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    text-align: center !important;
+  }
+
+  .children-title {
+    text-align: center !important;
+  }
+
   .floating-add-button {
-    width: 3rem !important;
-    height: 3rem !important;
-    font-size: 1.25rem !important;
-    bottom: 1.5rem !important;
-    right: 1.5rem !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    font-size: 1rem !important;
   }
 
   .floating-home-button {
@@ -1123,14 +1168,38 @@
   }
 
   .nav-buttons {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    gap: 0.75rem;
   }
 
   .nav-button {
-    width: 100%;
-    max-width: 300px;
+    flex: 1;
+    max-width: none;
     justify-content: center;
+  }
+
+  .nav-add-button {
+    width: 3rem !important;
+    height: 3rem !important;
+    font-size: 1.25rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-buttons {
+    gap: 0.5rem;
+  }
+
+  .nav-button {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  .nav-add-button {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    font-size: 1rem !important;
   }
 
   .item-card .ant-card-body {
@@ -1238,6 +1307,21 @@
   .stats-card {
     min-height: 90px !important;
   }
+
+  .children-header {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+
+  .children-title {
+    font-size: 1.25rem !important;
+  }
+
+  .floating-add-button {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    font-size: 0.875rem !important;
+  }
 }
 
 /* 全局Ant Design组件覆盖 */
@@ -1262,10 +1346,9 @@
 .ant-tooltip-inner {
   background: var(--bg-card) !important;
   color: var(--text-primary) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
   border-radius: var(--radius-lg) !important;
-  backdrop-filter: blur(10px) !important;
-  box-shadow: var(--shadow-lg) !important;
+  box-shadow: var(--shadow-md) !important;
 }
 
 .ant-modal-mask {
@@ -1284,8 +1367,8 @@
 .ant-input,
 .ant-input-number,
 .ant-select-selector {
-  background: var(--bg-card) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: var(--bg-secondary) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
   border-radius: var(--radius-lg) !important;
   color: var(--text-primary) !important;
 }
@@ -1293,8 +1376,8 @@
 .ant-input:focus,
 .ant-input-number:focus,
 .ant-select-selector:focus {
-  border-color: rgba(102, 126, 234, 0.5) !important;
-  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1) !important;
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.1) !important;
 }
 
 /* 动画增强 */

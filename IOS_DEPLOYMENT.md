@@ -95,10 +95,6 @@ server {
         add_header Cache-Control "public, max-age=31536000";
     }
     
-    location /sw.js {
-        add_header Cache-Control "no-cache";
-    }
-    
     # SPA路由支持
     location / {
         try_files $uri $uri/ /index.html;

@@ -11,12 +11,6 @@
   "lang": "zh-CN",
   "icons": [
     {
-      "src": "/vite.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
       "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
@@ -35,25 +29,13 @@
       "name": "添加孩子",
       "short_name": "添加孩子",
       "description": "快速添加新的孩子",
-      "url": "/?action=add-child",
-      "icons": [
-        {
-          "src": "/vite.svg",
-          "sizes": "192x192"
-        }
-      ]
+      "url": "/?action=add-child"
     },
     {
       "name": "设置",
       "short_name": "设置",
       "description": "管理奖励和惩罚项目",
-      "url": "/settings",
-      "icons": [
-        {
-          "src": "/vite.svg",
-          "sizes": "192x192"
-        }
-      ]
+      "url": "/settings"
     }
   ]
 } 

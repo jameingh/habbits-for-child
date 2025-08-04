@@ -91,12 +91,14 @@
 
 ## 🔧 部署后配置
 
-### 1. 更新Service Worker缓存
-如果您修改了应用，需要更新Service Worker版本：
+### 1. 应用更新
+如果您修改了应用，需要重新构建和部署：
 
-```javascript
-// public/sw.js
-const CACHE_NAME = 'habits-for-child-v2'; // 更改版本号
+```bash
+npm run build
+git add .
+git commit -m "Update application"
+git push origin main
 ```
 
 ### 2. 测试PWA功能
@@ -158,7 +160,7 @@ npm install
 
 ### 3. PWA功能不工作
 - 确保使用HTTPS
-- 检查`manifest.json`和`sw.js`路径
+- 检查`manifest.json`路径
 - 清除浏览器缓存
 
 ### 4. iOS上显示异常
